@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 
-f = open("cpu-log.csv", "w", encoding="utf-8")
+f = open("mem-log.csv", "w", encoding="utf-8")
 
 def println(str):
     "Print a line to console and to a file"
@@ -15,15 +15,16 @@ def name():
     return "cpu"
 
 def header():
-    return "time;user;system;idle"
+    return "time;available;percent;used;free"
 
 def poll():
     counter = round(time.perf_counter(), 1)
-    cpu_times = psutil.cpu_times()
-    user_cnt = cpu_times.user
-    system_cnt = cpu_times.system
-    idle_cnt = cpu_times.idle
-    return (str(counter)+";"+str(user_cnt)+";"+str(system_cnt)+";"+str(idle_cnt))
+    mem_info = psutil.virtual_memory()
+    available = mem_info.available
+    percent = mem_info.percent
+    used = mem_info.used
+    free = mem_info.free
+    return (str(counter)+";"+str(available)+";"+str(percent)+";"+str(used)+";"+str(free))
 
 if __name__ == "__main__":
     f = open("perf-log.csv", "w", encoding="utf-8")
@@ -33,4 +34,3 @@ if __name__ == "__main__":
         println(str(counter)+";"+poll())
         time.sleep(1)
     f.close()
-
