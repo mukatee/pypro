@@ -3,13 +3,14 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 
+print_console = False
 f = open("cpu-log.csv", "w", encoding="utf-8")
 
 def println(str):
     "Print a line to console and to a file"
     f.write(str+"\n")
     f.flush()
-    print(str)
+    if print_console: print(str)
 
 def name():
     return "cpu"

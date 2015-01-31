@@ -1,0 +1,24 @@
+pypro
+=====
+
+some python resource probes
+
+each session starts with timestamp for session start
+
+timestamp format: yyyy-mm-ddThh:mm:ss
+
+time: seconds in relation to some undefined starting point.
+      first record for probe in session should be used as reference to following to calculate actual time.
+
+(TODO: add all modes)
+cpu:
+   user:   seconds spent in user mode
+   system: seconds in system mode
+   idle:   seconds in idle mode
+
+(TODO: add all types)
+memory:
+   available: number of available bytes available (free) to processes
+   percent: percentage of all memory used 0-100
+   used: number of bytes used
+   free: another measure of free (see psutil docs)

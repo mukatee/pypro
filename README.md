@@ -1,4 +1,4 @@
 pypro
 =====
 
-some python resource probes
+some python resource probes in the works

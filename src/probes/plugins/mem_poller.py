@@ -3,13 +3,15 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 
+poll_swap = False
+print_console = False
 f = open("mem-log.csv", "w", encoding="utf-8")
 
 def println(str):
     "Print a line to console and to a file"
     f.write(str+"\n")
     f.flush()
-    print(str)
+    if print_console: print(str)
 
 def name():
     return "cpu"
@@ -18,6 +20,8 @@ def header():
     return "time;available;percent;used;free"
 
 def poll():
+    if poll_swap:
+        print("Should poll swap")
     counter = round(time.perf_counter(), 1)
     mem_info = psutil.virtual_memory()
     available = mem_info.available
