@@ -38,7 +38,9 @@ def poll_system(epoch):
     user_cnt = cpu_times.user
     system_cnt = cpu_times.system
     idle_cnt = cpu_times.idle
-    println_s(str(epoch) + ";" + str(user_cnt) + ";" + str(system_cnt) + ";" + str(idle_cnt))
+    prct = psutil.cpu_percent(interval=main.interval)
+    #TODO: per CPU prct
+    println_s(str(epoch) + ";" + str(user_cnt) + ";" + str(system_cnt) + ";" + str(idle_cnt) + ";" + str(prct))
 
 def poll():
     #int() converts argument to integer (string or float), in this case the float time
