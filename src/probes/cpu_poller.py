@@ -3,6 +3,7 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 import main
+import utils
 
 # process priority
 trace_niceness = True
@@ -18,8 +19,9 @@ header = "time;user;system;idle"
 
 props = []
 
-system_log = open("cpu-log-sys.csv", "w", encoding="utf-8")
-proc_log = open("cpu-log-proc.csv", "w", encoding="utf-8")
+utils.check_dir()
+system_log = open(utils.log_dir+"cpu-log-sys.csv", "w", encoding="utf-8")
+proc_log = open(utils.log_dir+"cpu-log-proc.csv", "w", encoding="utf-8")
 
 def println_s(str):
     "Print a line to console and to a file"

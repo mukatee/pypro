@@ -2,17 +2,20 @@ __author__ = 'teemu'
 
 import time
 import psutil
+import os
 import cpu_poller
 import mem_poller
 import io_poller
+import utils
 
 print_console = True
 info = {}
 errors = {}
 interval = 1
 
-proc_info_log = open("proc-log-info.csv", "w", encoding="utf-8")
-proc_error_log = open("proc-log-errors.csv", "w", encoding="utf-8")
+utils.check_dir()
+proc_info_log = open(utils.log_dir+"proc-log-info.csv", "w", encoding="utf-8")
+proc_error_log = open(utils.log_dir+"proc-log-errors.csv", "w", encoding="utf-8")
 
 def println_p_err(str):
     "Print a line to console and to a file"

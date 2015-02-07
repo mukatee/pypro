@@ -2,11 +2,14 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
+import os
 import main
+import utils
 
 header = "time;available;percent;used;free"
-system_log = open("mem-log-sys.csv", "w", encoding="utf-8")
-process_log = open("mem-log-proc.csv", "w", encoding="utf-8")
+utils.check_dir()
+system_log = open(utils.log_dir+"mem-log-sys.csv", "w", encoding="utf-8")
+process_log = open(utils.log_dir+"mem-log-proc.csv", "w", encoding="utf-8")
 
 def println_s(str):
     "Print a line to console and to a file"

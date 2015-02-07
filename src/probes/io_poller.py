@@ -3,9 +3,11 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 import main
+import utils
 
 header = "time;"
-system_log = open("io-log-sys.csv", "w", encoding="utf-8")
+utils.check_dir()
+system_log = open(utils.log_dir+"io-log-sys.csv", "w", encoding="utf-8")
 
 def println_s(str):
     "Print a line to console and to a file"
