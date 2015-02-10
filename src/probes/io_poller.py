@@ -2,9 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-import main
-import utils
-import file_logger
+from file_logger import file_logger
 
 class io_poller:
     def __init__(self, *loggers):
@@ -30,7 +28,7 @@ class io_poller:
         self.poll_system(epoch)
 
 if __name__ == "__main__":
-    file = file_logger()
+    file = file_logger(True)
     io_poller = io_poller(file)
     while (True):
         io_poller.poll()

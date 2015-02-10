@@ -2,14 +2,13 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-import os
-import main
-import utils
-import file_logger
+from file_logger import file_logger
+from proc_poller import proc_poller
 
 class mem_poller:
-    def __init__(self, *loggers):
+    def __init__(self, proc_poller, *loggers):
         self.loggers = loggers
+        self.proc_poller = proc_poller
 
     def poll_system(self, epoch):
         mem_info = psutil.virtual_memory()
@@ -40,7 +39,7 @@ class mem_poller:
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             # if the process has disappeared, we get an exception and ignore it
             # pass <- pass is NOP in Python
-            main.handle_process_poll_error(epoch, proc)
+            self.proc_poller.handle_process_poll_error(epoch, proc)
 
     def poll(self):
         # int() converts argument to integer (string or float), in this case the float time
@@ -48,12 +47,12 @@ class mem_poller:
         self.poll_system(epoch)
 
         for proc in psutil.process_iter():
-            main.check_info(epoch, proc)
+            self.proc_poller.check_info(epoch, proc)
             self.poll_process(epoch, proc)
 
 if __name__ == "__main__":
-    file = file_logger()
-    mem_poller = mem_poller(file)
+    file = file_logger(True)
+    mem_poller = mem_poller(proc_poller(), file)
     while (True):
         mem_poller.poll()
         time.sleep(1)

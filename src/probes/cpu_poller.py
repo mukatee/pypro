@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-import main
+from proc_poller import proc_poller
 from file_logger import file_logger
 
 class cpu_poller:
@@ -17,15 +17,17 @@ class cpu_poller:
     #time in kernel space
     trace_system = True
 
-    def __init__(self, *loggers):
+    def __init__(self, interval, proc_poller, *loggers):
+        self.proc_poller = proc_poller
         self.loggers = loggers
+        self.interval = interval
 
     def poll_system(self, epoch):
         cpu_times = psutil.cpu_times()
         user_cnt = cpu_times.user
         system_cnt = cpu_times.system
         idle_cnt = cpu_times.idle
-        prct = psutil.cpu_percent(interval=main.interval)
+        prct = psutil.cpu_percent(interval=self.interval)
         #TODO: per CPU prct
         for logger in self.loggers:
             logger.cpu_sys(epoch, user_cnt, system_cnt, idle_cnt, prct)
@@ -36,7 +38,7 @@ class cpu_poller:
         self.poll_system(epoch)
 
         for proc in psutil.process_iter():
-            main.check_info(epoch, proc)
+            self.proc_poller.check_info(epoch, proc)
             self.poll_process(epoch, proc)
 
     def poll_process(self, epoch, proc):
@@ -56,11 +58,12 @@ class cpu_poller:
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             #if the process has disappeared, we get an exception and ignore it
             #pass <- pass is NOP in Python
-            main.handle_process_poll_error(epoch, proc)
+            self.proc_poller.handle_process_poll_error(epoch, proc)
 
 if __name__ == "__main__":
-    file = file_logger()
-    cpu_poller = cpu_poller(file)
+    file = file_logger(True)
+    proc = proc_poller(file)
+    cpu_poller = cpu_poller(1, proc, file)
     while (True):
         cpu_poller.poll()
         time.sleep(1)

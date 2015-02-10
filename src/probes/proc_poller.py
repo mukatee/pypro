@@ -13,7 +13,7 @@ class proc_poller:
                 return
         self.info[proc.pid] = proc.name()
         for logger in self.loggers:
-            logger.proc_info(epoch, proc.pid, proc.name)
+            logger.proc_info(epoch, proc.pid, proc.name())
 
     def handle_process_poll_error(self, epoch, proc):
         if proc.pid in self.errors:
