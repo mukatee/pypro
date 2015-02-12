@@ -5,17 +5,17 @@ grant all privileges on pypro_db.* to 'pypro'@'localhost';
 
 #and below are the sql statements to create the database
 
-alter table io_sys drop foreign key fk_session_id;
-alter table mem_proc drop foreign key fk_proc_id;
-alter table mem_proc drop foreign key fk_session_id;
-alter table mem_sys drop foreign key fk_session_id;
-alter table cpu_proc drop foreign key fk_session_id;
-alter table cpu_proc drop foreign key fk_proc_id;
-alter table cpu_sys drop foreign key fk_session_id;
-alter table event_log drop foreign key fk_session_id;
-alter table event_log drop foreign key fk_proc_id;
-alter table event_log drop foreign key fk_event_type_id;
-alter table proc_info drop foreign key fk_session_id;
+alter table io_sys drop foreign key fk_is_session_id;
+alter table mem_proc drop foreign key fk_mp_proc_id;
+alter table mem_proc drop foreign key fk_mp_session_id;
+alter table mem_sys drop foreign key fk_ms_session_id;
+alter table cpu_proc drop foreign key fk_cp_session_id;
+alter table cpu_proc drop foreign key fk_cp_proc_id;
+alter table cpu_sys drop foreign key fk_cs_session_id;
+alter table event_log drop foreign key fk_el_session_id;
+alter table event_log drop foreign key fk_el_proc_id;
+alter table event_log drop foreign key fk_el_event_type_id;
+alter table proc_info drop foreign key fk_pi_session_id;
 
 DROP TABLE IF EXISTS proc_info;
 DROP TABLE IF EXISTS event_type;
@@ -25,12 +25,13 @@ DROP TABLE IF EXISTS cpu_proc;
 DROP TABLE IF EXISTS mem_sys;
 DROP TABLE IF EXISTS mem_proc;
 DROP TABLE IF EXISTS io_sys;
+DROP TABLE IF EXISTS session_info;
 
 CREATE TABLE session_info (
   session_id int(5),
   description varchar(255),
   PRIMARY KEY (session_id),
-  INDEX ind_sid (session_id)
+  INDEX ind_si_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE proc_info (
@@ -38,13 +39,14 @@ CREATE TABLE proc_info (
   rec_time datetime NOT NULL,
   proc_id int(5),
   name varchar(255),
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_proc (proc_id),
+  CONSTRAINT fk_pi_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE event_type (
   type_id int(3) NOT NULL auto_increment,
   description varchar(255),
-  PRIMARY KEY (type_id),
+  PRIMARY KEY (type_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE event_log (
@@ -54,10 +56,10 @@ CREATE TABLE event_log (
   event_time datetime,
   event_type int(3),
   PRIMARY KEY (event_id),
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  CONSTRAINT fk_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
-  CONSTRAINT fk_event_type_id FOREIGN KEY (event_type) REFERENCES event_type(type_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_el_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  CONSTRAINT fk_el_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
+  CONSTRAINT fk_el_event_type_id FOREIGN KEY (event_type) REFERENCES event_type(type_id),
+  INDEX ind_el_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE cpu_sys (
@@ -68,8 +70,8 @@ CREATE TABLE cpu_sys (
   kernel_mode decimal(12,2) NOT NULL,
   idle_mode decimal(12,2) NOT NULL,
   percent decimal(5,2) NOT NULL,
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_cs_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_cs_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE cpu_proc (
@@ -81,9 +83,9 @@ CREATE TABLE cpu_proc (
   threads int(5),
   user_mode decimal(12,2) NOT NULL,
   kernel_mode decimal(12,2) NOT NULL,
-  CONSTRAINT fk_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_cp_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
+  CONSTRAINT fk_cp_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_cp_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE mem_sys (
@@ -98,8 +100,8 @@ CREATE TABLE mem_sys (
   swap_in bigint(15) NOT NULL,
   swap_out bigint(15) NOT NULL,
   swap_percent decimal(5,2) NOT NULL,
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_ms_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_ms_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE mem_proc (
@@ -109,9 +111,9 @@ CREATE TABLE mem_proc (
   used bigint(15),
   virtual bigint(15),
   percent decimal(5,2) NOT NULL,
-  CONSTRAINT fk_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_mp_proc_id FOREIGN KEY (proc_id) REFERENCES proc_info (proc_id),
+  CONSTRAINT fk_mp_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_mp_sid (session_id)
   ) ENGINE=InnoDB;
 
 CREATE TABLE io_sys (
@@ -125,8 +127,8 @@ CREATE TABLE io_sys (
   errors_out int(5) NOT NULL,
   dropped_in int(5) NOT NULL,
   dropped_out int(5) NOT NULL,
-  CONSTRAINT fk_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
-  INDEX ind_sid (session_id),
+  CONSTRAINT fk_is_session_id FOREIGN KEY (session_id) REFERENCES session_info (session_id),
+  INDEX ind_is_sid (session_id)
   ) ENGINE=InnoDB;
 
 

@@ -27,6 +27,14 @@ class file_logger:
         self.proc_info_log = open(utils.log_dir+"proc-log-info.csv", "w", encoding="utf-8")
         self.proc_error_log = open(utils.log_dir+"proc-log-errors.csv", "w", encoding="utf-8")
 
+    def close(self):
+        self.cpu_system_log.close()
+        self.cpu_proc_log.close()
+        self.mem_system_log.close()
+        self.mem_proc_log.close()
+        self.io_system_log.close()
+        self.proc_info_log.close()
+        self.proc_error_log.close()
 
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"
