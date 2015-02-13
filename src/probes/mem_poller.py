@@ -2,10 +2,10 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from file_logger import file_logger
-from proc_poller import proc_poller
+from file_logger import FileLogger
+from proc_poller import ProcPoller
 
-class mem_poller:
+class MemPoller:
     def __init__(self, proc_poller, *loggers):
         self.loggers = loggers
         self.proc_poller = proc_poller
@@ -51,8 +51,8 @@ class mem_poller:
             self.poll_process(epoch, proc)
 
 if __name__ == "__main__":
-    file = file_logger(True)
-    mem_poller = mem_poller(proc_poller(), file)
+    file = FileLogger(True)
+    mem_poller = MemPoller(ProcPoller(), file)
     while (True):
         mem_poller.poll()
         time.sleep(1)

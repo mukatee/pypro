@@ -2,10 +2,11 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from proc_poller import proc_poller
-from file_logger import file_logger
+from proc_poller import ProcPoller
+from file_logger import FileLogger
+from es_logger import ESLogger
 
-class cpu_poller:
+class CPUPoller:
     # process priority
     trace_niceness = True
     # number of threads per process
@@ -61,9 +62,10 @@ class cpu_poller:
             self.proc_poller.handle_process_poll_error(epoch, proc)
 
 if __name__ == "__main__":
-    file = file_logger(True)
-    proc = proc_poller(file)
-    cpu_poller = cpu_poller(1, proc, file)
+    file = FileLogger(True)
+    es = ESLogger(False, "session 1")
+    proc = ProcPoller(file)
+    cpu_poller = CPUPoller(1, proc, file, es)
     while (True):
         cpu_poller.poll()
         time.sleep(1)

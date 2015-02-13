@@ -4,7 +4,7 @@ import psutil
 import time
 from file_logger import file_logger
 
-class io_poller:
+class IOPoller:
     def __init__(self, *loggers):
         self.loggers = loggers
 

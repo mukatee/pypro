@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import utils
 
-class file_logger:
+class FileLogger:
     def __init__(self, print_console):
         utils.check_dir()
         self.print_console = print_console

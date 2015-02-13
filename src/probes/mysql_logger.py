@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import mysql.connector
 
-class mysql_logger:
+class MySQLLogger:
     def __init__(self):
         self.conn = mysql.connector.connect(user='pypro', password='omg-change-this-pw',
                                       host='localhost',
