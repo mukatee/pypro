@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from file_logger import file_logger
+from file_logger import FileLogger
 
 class IOPoller:
     def __init__(self, *loggers):
@@ -25,11 +25,12 @@ class IOPoller:
     def poll(self):
         # int() converts argument to integer (string or float), in this case the float time
         epoch = int(time.time())
+        epoch *= 1000
         self.poll_system(epoch)
 
 if __name__ == "__main__":
-    file = file_logger(True)
-    io_poller = io_poller(file)
+    file = FileLogger(True)
+    io_poller = IOPoller(file)
     while (True):
         io_poller.poll()
         time.sleep(1)

@@ -1,0 +1,19 @@
+loading into elasticsearch: index only allows filename chars. space is not allowed.
+curl allows to define file to load with @
+default port is 9200, can be set in config.yml
+in theory type allows space but does not work with curl so forget it
+update to new es: download and extract new version, copy over data dir, start
+
+list indices: curl 'localhost:9200/_cat/indices?v'
+get item: curl -XGET 'http://localhost:9200/session1/tweet/1'
+bulk upload: curl -s -XPOST localhost:9200/_bulk --data-binary @FILENAME
+delete index: curl -XDELETE 'http://localhost:9200/INDEXNAME/'
+stats for docs in specific index: curl localhost:9200/INDEXNAME/_stats/docs/
+index mappings (schema): curl -XGET 'http://localhost:9200/session1/_mapping'
+type mappings: curl -XGET 'http://localhost:9200/INDEXNAME/_mapping/TYPENAME'
+create mapping: curl -XPOST 'http://localhost:9200/INDEXNAME' --data-binary @FILENAME
+
+sometimes these commands might be shown as having “;echo” appended at the end.
+this helps in providing a newline as the returned data has no trailing newline otherwise (which can be confusing..)
+
+kibana: y-axis = sum of cpu_system, buckets = x-axis, date histogram/second, sub-aggregation=split-bars, terms, pid

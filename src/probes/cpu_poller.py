@@ -36,6 +36,7 @@ class CPUPoller:
     def poll(self):
         #int() converts argument to integer (string or float), in this case the float time
         epoch = int(time.time())
+        epoch *= 1000 #this converts it into milliseconds
         self.poll_system(epoch)
 
         for proc in psutil.process_iter():
@@ -63,7 +64,7 @@ class CPUPoller:
 
 if __name__ == "__main__":
     file = FileLogger(True)
-    es = ESLogger(False, "session 1")
+    es = ESLogger(False, "session1")
     proc = ProcPoller(file)
     cpu_poller = CPUPoller(1, proc, file, es)
     while (True):
