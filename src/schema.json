@@ -8,7 +8,8 @@
           "pid":{"type":"long"},
           "priority":{"type":"long"},
           "threads":{"type":"long"},
-          "time":{"type":"date"}
+          "time":{"type":"date"},
+          "percent":{"type":"double"}
         }
       },
     "system_memory":

@@ -46,12 +46,12 @@ class ESLogger:
         self.cpu_system_log.flush()
         if self.print_console: print(line)
 
-    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system):
+    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent):
         "Logs CPU metrics at process level"
         line = '{"index" : { "_index": "'+self.index+'", "_type": "process_cpu", "_id": "cpu_proc_'+str(self.cpu_proc_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "priority": ' + str(priority) + ', '\
                 '"context_switches": ' + str(ctx_count) + ', "threads": ' + str(n_threads) + ', ' + \
-                '"cpu_user": ' + str(cpu_user) + ', "cpu_system": '+str(cpu_system)+'}'
+                '"cpu_user": ' + str(cpu_user) + ', "cpu_system": '+str(cpu_system) + ', "percent": '+str(percent)+'}'
         self.cpu_proc_id += 1
         self.cpu_proc_log.write(line + "\n")
         self.cpu_proc_log.flush()

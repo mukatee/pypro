@@ -28,7 +28,7 @@ class CPUPoller:
         user_cnt = cpu_times.user
         system_cnt = cpu_times.system
         idle_cnt = cpu_times.idle
-        prct = psutil.cpu_percent(interval=self.interval)
+        prct = psutil.cpu_percent()
         #TODO: per CPU prct
         for logger in self.loggers:
             logger.cpu_sys(epoch, user_cnt, system_cnt, idle_cnt, prct)
@@ -55,8 +55,9 @@ class CPUPoller:
             cpu_times = proc.cpu_times()
             cpu_user = cpu_times.user
             cpu_system = cpu_times.system
+            cpu_percent = proc.cpu_percent()
             for logger in self.loggers:
-                logger.cpu_proc(epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system)
+                logger.cpu_proc(epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             #if the process has disappeared, we get an exception and ignore it
             #pass <- pass is NOP in Python

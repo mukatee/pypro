@@ -17,3 +17,5 @@ sometimes these commands might be shown as having “;echo” appended at the en
 this helps in providing a newline as the returned data has no trailing newline otherwise (which can be confusing..)
 
 kibana: y-axis = sum of cpu_system, buckets = x-axis, date histogram/second, sub-aggregation=split-bars, terms, pid
+
+psutil: cpu/process poll with interval makes you wait for the duration of interval
