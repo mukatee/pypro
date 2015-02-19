@@ -1,18 +1,24 @@
 __author__ = 'teemu'
 
 import time
+import config
 from cpu_poller import CPUPoller
 from mem_poller import MemPoller
 from io_poller import IOPoller
-from es_logger import ESLogger
+from es_network_logger import ESNetLogger
+from es_file_logger import ESFileLogger
+from csv_file_logger import CSVFileLogger
 from proc_poller import ProcPoller
+from mysql_logger import MySqlLogger
 
-interval = 1
-es_logger = ESLogger(False, "session1")
-proc_poller = ProcPoller(es_logger)
-cpu_poller = CPUPoller(interval, proc_poller, es_logger)
-mem_poller = MemPoller(proc_poller, es_logger)
-io_poller = IOPoller(es_logger)
+#logger = ESNetLogger(True, "session2")
+logger1 = MySqlLogger()
+#logger1 = ESFileLogger()
+logger2 = CSVFileLogger()
+proc_poller = ProcPoller(logger1, logger2)
+cpu_poller = CPUPoller(proc_poller, logger1, logger2)
+mem_poller = MemPoller(proc_poller, logger1, logger2)
+io_poller = IOPoller(logger1, logger2)
 
 def run_poller():
     #int() converts argument to integer (string or float), in this case the float time
@@ -22,6 +28,7 @@ def run_poller():
     io_poller.poll()
 
 if __name__ == "__main__":
+    print (time.time())
     while True:
         run_poller()
-        time.sleep(interval)
+        time.sleep(config.INTERVAL)

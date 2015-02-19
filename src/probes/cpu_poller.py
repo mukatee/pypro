@@ -2,9 +2,10 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
+import config
 from proc_poller import ProcPoller
-from file_logger import FileLogger
-from es_logger import ESLogger
+from csv_file_logger import CSVFileLogger
+from es_file_logger import ESFileLogger
 
 class CPUPoller:
     # process priority
@@ -18,10 +19,9 @@ class CPUPoller:
     #time in kernel space
     trace_system = True
 
-    def __init__(self, interval, proc_poller, *loggers):
+    def __init__(self, proc_poller, *loggers):
         self.proc_poller = proc_poller
         self.loggers = loggers
-        self.interval = interval
 
     def poll_system(self, epoch):
         cpu_times = psutil.cpu_times()
@@ -64,11 +64,11 @@ class CPUPoller:
             self.proc_poller.handle_process_poll_error(epoch, proc)
 
 if __name__ == "__main__":
-    file = FileLogger(True)
-    es = ESLogger(False, "session1")
-    proc = ProcPoller(file)
-    cpu_poller = CPUPoller(1, proc, file, es)
+    csv = CSVFileLogger()
+    es = ESFileLogger()
+    proc = ProcPoller(csv, es)
+    cpu_poller = CPUPoller(proc, csv, es)
     while (True):
         cpu_poller.poll()
-        time.sleep(1)
-    file.close()
+        time.sleep(config.INTERVAL)
+    csv.close()

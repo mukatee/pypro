@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from file_logger import FileLogger
+from csv_file_logger import CSVFileLogger
 from proc_poller import ProcPoller
 
 class MemPoller:
@@ -44,6 +44,7 @@ class MemPoller:
     def poll(self):
         # int() converts argument to integer (string or float), in this case the float time
         epoch = int(time.time())
+        #TODO: remove this multiplier and do modifications in loggers
         epoch *= 1000
         self.poll_system(epoch)
 
@@ -52,7 +53,7 @@ class MemPoller:
             self.poll_process(epoch, proc)
 
 if __name__ == "__main__":
-    file = FileLogger(True)
+    file = CSVFileLogger(True)
     mem_poller = MemPoller(ProcPoller(), file)
     while (True):
         mem_poller.poll()

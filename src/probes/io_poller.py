@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from file_logger import FileLogger
+from csv_file_logger import CSVFileLogger
 
 class IOPoller:
     def __init__(self, *loggers):
@@ -29,7 +29,7 @@ class IOPoller:
         self.poll_system(epoch)
 
 if __name__ == "__main__":
-    file = FileLogger(True)
+    file = CSVFileLogger(True)
     io_poller = IOPoller(file)
     while (True):
         io_poller.poll()
