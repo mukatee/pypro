@@ -2,10 +2,18 @@ __author__ = 'teemu kanstren'
 
 import utils
 import config
+import time
 
 class CSVFileLogger:
     def __init__(self):
         utils.check_dir()
+
+        self.session_info_log = open(utils.log_dir+"session-info.csv", "w", encoding="utf-8")
+        session_info_header = "time;description"
+        now = int(time.time())
+        self.session_info_log.write(session_info_header + "\n")
+        self.session_info_log.write(str(now) + ";" + config.SESSION_NAME + "\n")
+        self.session_info_log.flush()
 
         self.cpu_system_log = open(utils.log_dir+"cpu-log-sys.csv", "w", encoding="utf-8")
         cpu_sys_header = "time;user;system;idle;percentage"
@@ -50,6 +58,7 @@ class CSVFileLogger:
         self.io_system_log.close()
         self.proc_info_log.close()
         self.event_log.close()
+        self.session_info_log.close()
 
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"

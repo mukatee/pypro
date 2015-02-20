@@ -10,6 +10,7 @@ class IOPoller:
 
     def poll_system(self, epoch):
         #TODO: per NIC data
+        #TODO: disk data
         net_counters = psutil.net_io_counters()
         bytes_sent = net_counters.bytes_sent
         bytes_recv = net_counters.bytes_recv

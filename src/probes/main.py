@@ -12,8 +12,8 @@ from proc_poller import ProcPoller
 from mysql_logger import MySqlLogger
 
 #logger = ESNetLogger(True, "session2")
-logger1 = MySqlLogger()
-#logger1 = ESFileLogger()
+#logger1 = MySqlLogger()
+logger1 = ESFileLogger()
 logger2 = CSVFileLogger()
 proc_poller = ProcPoller(logger1, logger2)
 cpu_poller = CPUPoller(proc_poller, logger1, logger2)

@@ -46,7 +46,7 @@
           "time":{"type":"date"}
         }
       },
-    "process_errors":
+    "events":
       {"properties":
         {
           "name":{"type":"string"},
@@ -76,6 +76,13 @@
           "rss":{"type":"long"},
           "time":{"type":"date"},
           "vms":{"type":"long"}
+        }
+      },
+    "session_info":
+      {"properties":
+        {
+          "description":{"type":"string"},
+          "start_time":{"type":"date"}
         }
       }
     }

@@ -39,14 +39,15 @@ class ESFileLogger:
         self.event_log.close()
 
     def session_info(self):
-        now = time.time()
+        now = int(time.time()) * 1000
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "session_info", "_id": "session-'+str(now)+'"}}\n'
-        line += '{"description": '+ config.SESSION_NAME + ', "start_time": ' + str(now) + '}'
+        line += '{"description": "'+ config.SESSION_NAME + '", "start_time": ' + str(now) + '}'
         self.session_log.write(line + "\n")
         self.session_log.flush()
 
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "system_cpu", "_id": "cpu_sys_'+str(self.cpu_sys_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "user_count": ' + str(user_count) + ', ' +\
                 '"system_count": ' + str(system_count) + ', "idle_count": ' + str(idle_count) + ', ' + \
@@ -58,6 +59,7 @@ class ESFileLogger:
 
     def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent):
         "Logs CPU metrics at process level"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "process_cpu", "_id": "cpu_proc_'+str(self.cpu_proc_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "priority": ' + str(priority) + ', '\
                 '"context_switches": ' + str(ctx_count) + ', "threads": ' + str(n_threads) + ', ' + \
@@ -70,6 +72,7 @@ class ESFileLogger:
     def mem_sys(self, epoch, available, percent, used, free,
                 swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent):
         "Logs memory metrics at system level"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "system_memory", "_id": "mem_sys_'+str(self.mem_sys_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "available": ' + str(available) + ', "percent": ' + str(percent) + ', ' +\
                 '"used": ' + str(used) + ', "free": ' + str(free) + ', "swap_total": ' + str(swap_total) + ', ' + \
@@ -82,6 +85,7 @@ class ESFileLogger:
 
     def mem_proc(self, epoch, pid, rss, vms, percent):
         "Logs memory metrics at process level"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "process_memory", "_id": "mem_proc_'+str(self.mem_proc_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
                 '"vms": ' + str(vms) + ', "percent": ' + str(percent) + '}'
@@ -92,6 +96,7 @@ class ESFileLogger:
 
     def io_sys(self, epoch, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "system_io", "_id": "io_sys_'+str(self.io_sys_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "bytes_sent": ' + str(bytes_sent) + ', "bytes_recv": ' + str(bytes_recv) + ', ' +\
                 '"packets_sent": ' + str(packets_sent) + ', "packets_received": ' + str(packets_recv) + ', ' + \
@@ -104,6 +109,7 @@ class ESFileLogger:
 
     def proc_error(self, epoch, pid, name):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "event", "_id": "proc_error_'+str(self.event_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "name": "' + str(name)+'"}'
         self.event_id += 1
@@ -113,6 +119,7 @@ class ESFileLogger:
 
     def proc_info(self, epoch, pid, name):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "process_info", "_id": "proc_info_'+str(self.proc_info_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "name": "' + str(name)+'"}'
         self.proc_info_id += 1

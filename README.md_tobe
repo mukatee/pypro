@@ -1,24 +1,84 @@
-pypro
-=====
+Python Resource Probes
+======================
 
-some python resource probes
+Records statistics related to system resource use. Based on the *psutil* library.
+Built using Python 3.4. No idea about workings with other versions.
 
-each session starts with timestamp for session start
+Data stores
+-----------
 
-timestamp format: yyyy-mm-ddThh:mm:ss
+Polls the system at given interval for resource use statistics and logs them to given destination(s).
+Supported logging targets are:
+- CSV file
+- Elasticsearch bulk import file
+- Elasticsearch database
+- MySQL database
 
-time: seconds in relation to some undefined starting point.
-      first record for probe in session should be used as reference to following to calculate actual time.
+Metrics
+-------
 
-(TODO: add all modes)
-cpu:
-   user:   seconds spent in user mode
-   system: seconds in system mode
-   idle:   seconds in idle mode
+The data collected consists of that supported by *psutil*.
+Suggest to check [psutil](http://pythonhosted.org/psutil/) docs for more info.
+As a summary the collected data contains:
 
-(TODO: add all types)
-memory:
-   available: number of available bytes available (free) to processes
-   percent: percentage of all memory used 0-100
-   used: number of bytes used
-   free: another measure of free (see psutil docs)
+- System Memory
+  - Available: Memory available to processes on the system (bytes).
+  - Free: Memory not used (bytes). Somehow different from available, check the psutil docs.
+  - Used: Memory used on the system at given time (bytes).
+  - Percent: Percentage of total memory used (0-100).
+  - Swap total: Total size of swap memory on system (bytes).
+  - Swap used: Used swap memory (bytes).
+  - Swap free: Free swap memory (bytes).
+  - Swap percent: Percentage of used swamp memory (0-100).
+  - Swap in: Number of bytes swapped in from disk.
+  - Swap out: Number of bytes swapped out to disk.
+
+- System CPU
+  - User time: Time spent in user mode (seconds).
+  - System time: Time spent in kernel mode (seconds).
+  - Idle time: Time spend idle (seconds).
+  - Percent: CPU load percentage between polling intervals (0-100, can be higher e.g. 0-200 on dual-core).
+
+- System IO (Network)
+  - Bytes received: Number of bytes received.
+  - Bytes sent: Number of bytes sent.
+  - Dropped in: Number of dropped incoming packets.
+  - Dropped out: Number of dropped outgoing packets.
+  - Errors in: Total number of errors while receiving data.
+  - Errors out: Total number of errors while sending data.
+  - Packets sent: Number of packets sent.
+  - Packets received: Number of packets received.
+
+- Process Memory
+  - Used: Amount of used memory for this process.
+  - Virtual memory: Amount of virtual memory for this process.
+  - Percentage: Percentage of system memory used by this process.
+  - Process ID: ID for this process.
+
+- Process CPU
+  - Context switches: Number of context switches by this process.
+  - System time: Time spent in kernel mode (seconds).
+  - User time: Time spent in user mode (seconds).
+  - Priority: Process priority.
+  - Thread count: Number of threads currently used by this process.
+  - Percentage: Percentage of system CPU used by this process in polling interval.
+  - Process ID: ID for this process.
+
+Session Information
+-------------------
+
+For each recording session, the following information is also recorded:
+- Description: User provided description of the recording session.
+- Start time: Time when session was started.
+
+Timestamps
+----------
+
+Besides the above resource data fields, each recorded entry also contains a timestamp.
+The timestamps are recorded as Epoch timestamps.
+Seconds for MySQL/CSV, milliseconds for Elasticsearch.
+
+Usage
+-----
+
+

@@ -36,7 +36,6 @@ class CPUPoller:
     def poll(self):
         #int() converts argument to integer (string or float), in this case the float time
         epoch = int(time.time())
-        epoch *= 1000 #this converts it into milliseconds
         self.poll_system(epoch)
 
         for proc in psutil.process_iter():

@@ -38,13 +38,11 @@ class MySqlLogger:
 
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"
-        epoch /= 1000
         self.cursor.execute(self.insert_cpu_sys, (self.session_id, epoch, user_count, system_count, idle_count, percent))
         self.conn.commit()
 
     def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent):
         "Logs CPU metrics at process level"
-        epoch /= 1000
         self.cursor.execute(self.insert_cpu_proc, (self.session_id, epoch, pid, priority, ctx_count, n_threads,
                                                    cpu_user, cpu_system, cpu_percent))
         self.conn.commit()
@@ -52,20 +50,17 @@ class MySqlLogger:
     def mem_sys(self, epoch, available, percent, used, free,
                 swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent):
         "Logs memory metrics at system level"
-        epoch /= 1000
         self.cursor.execute(self.insert_mem_sys, (self.session_id, epoch, available, percent, used, free,
                                                   swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent))
         self.conn.commit()
 
     def mem_proc(self, epoch, pid, rss, vms, percent):
         "Logs memory metrics at process level"
-        epoch /= 1000
         self.cursor.execute(self.insert_mem_proc, (self.session_id, epoch, pid, rss, vms, percent))
         self.conn.commit()
 
     def io_sys(self, epoch, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout):
         "Logs IO activity"
-        epoch /= 1000
         self.cursor.execute(self.insert_io_sys, (self.session_id, epoch, bytes_sent, bytes_recv,
                                                    packets_sent, packets_recv,
                                                    errin, errout, dropin, dropout))
@@ -73,12 +68,10 @@ class MySqlLogger:
 
     def proc_error(self, epoch, pid, name):
         "Logs an error related to process polling"
-        epoch /= 1000
         self.cursor.execute(self.insert_proc_error, (self.session_id, epoch, 1, name))
         self.conn.commit()
 
     def proc_info(self, epoch, pid, name):
         "Logs information on a process"
-        epoch /= 1000
         self.cursor.execute(self.insert_proc_info, (self.session_id, epoch, pid, name))
         self.conn.commit()

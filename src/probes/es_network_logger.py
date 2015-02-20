@@ -23,13 +23,14 @@ class ESNetLogger:
         pass
 
     def session_info(self):
-        now = time.time()
-        body = '{"description": '+ config.SESSION_NAME + ', "start_time": ' + str(now) + '}'
+        now = int(time.time()) * 1000
+        body = '{"description": "'+ config.SESSION_NAME + '", "start_time": ' + str(now) + '}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="session_info", id='session-'+str(now), body=body)
         if config.PRINT_CONSOLE: print(reply)
 
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "user_count": ' + str(user_count) + ', ' +\
                 '"system_count": ' + str(system_count) + ', "idle_count": ' + str(idle_count) + ', ' + \
                 '"percent": ' + str(percent) + '}'
@@ -39,6 +40,7 @@ class ESNetLogger:
 
     def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent):
         "Logs CPU metrics at process level"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "priority": ' + str(priority) + ', '\
                 '"context_switches": ' + str(ctx_count) + ', "threads": ' + str(n_threads) + ', ' + \
                 '"cpu_user": ' + str(cpu_user) + ', "cpu_system": '+str(cpu_system) + ', "percent": '+str(percent)+'}'
@@ -49,6 +51,7 @@ class ESNetLogger:
     def mem_sys(self, epoch, available, percent, used, free,
                 swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent):
         "Logs memory metrics at system level"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "available": ' + str(available) + ', "percent": ' + str(percent) + ', ' +\
                 '"used": ' + str(used) + ', "free": ' + str(free) + ', "swap_total": ' + str(swap_total) + ', ' + \
                 '"swap_used": ' + str(swap_used) + ', "swap_free": ' + str(swap_free) + ', "swap_in": ' + str(swap_in) + ', ' + \
@@ -59,6 +62,7 @@ class ESNetLogger:
 
     def mem_proc(self, epoch, pid, rss, vms, percent):
         "Logs memory metrics at process level"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
                 '"vms": ' + str(vms) + ', "percent": ' + str(percent) + '}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="process_memory", id="mem_proc_"+str(self.mem_proc_id), body=body)
@@ -67,6 +71,7 @@ class ESNetLogger:
 
     def io_sys(self, epoch, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "bytes_sent": ' + str(bytes_sent) + ', "bytes_recv": ' + str(bytes_recv) + ', ' +\
                 '"packets_sent": ' + str(packets_sent) + ', "packets_received": ' + str(packets_recv) + ', ' + \
                 '"errors_in": ' + str(errin) + ', "errors_out": ' + str(errout) + ', "dropped_in": ' + str(dropin) + ', ' + \
@@ -77,6 +82,7 @@ class ESNetLogger:
 
     def proc_error(self, epoch, pid, name):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "name": "' + str(name)+'"}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="event", id="proc_error_"+str(self.proc_error_id), body=body)
         self.proc_error_id += 1
@@ -84,6 +90,7 @@ class ESNetLogger:
 
     def proc_info(self, epoch, pid, name):
         "Print a line to console and to a file"
+        epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "name": "' + str(name)+'"}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="process_info", id="proc_info_"+str(self.proc_info_id), body=body)
         self.proc_info_id += 1
