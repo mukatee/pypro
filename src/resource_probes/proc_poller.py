@@ -6,7 +6,7 @@ class ProcPoller:
     info = {}
     errors = {}
 
-    def __init__(self, *loggers):
+    def __init__(self, loggers):
         self.loggers = loggers
 
     def check_info(self, epoch, proc):

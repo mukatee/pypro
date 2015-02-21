@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import time
 from elasticsearch import Elasticsearch
-import config
+import resource_probes.config as config
 
 class ESNetLogger:
     def __init__(self):

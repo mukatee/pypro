@@ -2,10 +2,10 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-import config
-from proc_poller import ProcPoller
-from csv_file_logger import CSVFileLogger
-from es_file_logger import ESFileLogger
+import resource_probes.config as config
+from resource_probes.proc_poller import ProcPoller
+from resource_probes.csv_file_logger import CSVFileLogger
+from resource_probes.es_file_logger import ESFileLogger
 
 class CPUPoller:
     # process priority
@@ -19,7 +19,7 @@ class CPUPoller:
     #time in kernel space
     trace_system = True
 
-    def __init__(self, proc_poller, *loggers):
+    def __init__(self, proc_poller, loggers):
         self.proc_poller = proc_poller
         self.loggers = loggers
 
@@ -29,7 +29,7 @@ class CPUPoller:
         system_cnt = cpu_times.system
         idle_cnt = cpu_times.idle
         prct = psutil.cpu_percent()
-        #TODO: per CPU prct
+        #TODO: per CPU
         for logger in self.loggers:
             logger.cpu_sys(epoch, user_cnt, system_cnt, idle_cnt, prct)
 

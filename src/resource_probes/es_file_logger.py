@@ -1,8 +1,8 @@
 __author__ = 'teemu kanstren'
 
 import time
-import utils
-import config
+import resource_probes.utils as utils
+import resource_probes.config as config
 
 class ESFileLogger:
     def __init__(self):

@@ -2,11 +2,11 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from csv_file_logger import CSVFileLogger
-from proc_poller import ProcPoller
+from resource_probes.csv_file_logger import CSVFileLogger
+from resource_probes.proc_poller import ProcPoller
 
 class MemPoller:
-    def __init__(self, proc_poller, *loggers):
+    def __init__(self, proc_poller, loggers):
         self.loggers = loggers
         self.proc_poller = proc_poller
 

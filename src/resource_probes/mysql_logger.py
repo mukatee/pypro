@@ -1,7 +1,7 @@
 __author__ = 'teemu kanstren'
 
 import time
-import config
+import resource_probes.config as config
 import mysql.connector
 
 class MySqlLogger:

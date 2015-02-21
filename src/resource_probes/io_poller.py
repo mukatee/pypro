@@ -2,10 +2,10 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from csv_file_logger import CSVFileLogger
+from resource_probes.csv_file_logger import CSVFileLogger
 
 class IOPoller:
-    def __init__(self, *loggers):
+    def __init__(self, loggers):
         self.loggers = loggers
 
     def poll_system(self, epoch):
