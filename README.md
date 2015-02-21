@@ -106,5 +106,6 @@ For configuration options, see [config.py](https://github.com/mukatee/pypro/blob
 License
 -------
 
+MIT License
 
 
