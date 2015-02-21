@@ -25,7 +25,7 @@ class ProcPoller:
         try:
             name = proc.name()
         except(psutil.NoSuchProcess, psutil.AccessDenied):
-            name = "?"
+            name = "? ("+proc.pid+")"
         if proc.pid in self.errors:
             if self.errors[proc.pid] == name:
                 return

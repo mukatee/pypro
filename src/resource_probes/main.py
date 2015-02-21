@@ -11,26 +11,30 @@ from resource_probes.csv_file_logger import CSVFileLogger
 from resource_probes.proc_poller import ProcPoller
 from resource_probes.mysql_logger import MySqlLogger
 
-#logger = ESNetLogger(True, "session2")
-#logger1 = MySqlLogger()
-loggers = []
-if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
-if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
-if (config.MYSQL_ENABLED): loggers.append(MySqlLogger())
-if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
-proc_poller = ProcPoller(loggers)
-cpu_poller = CPUPoller(proc_poller, loggers)
-mem_poller = MemPoller(proc_poller, loggers)
-io_poller = IOPoller(loggers)
+def init():
+    global loggers
+    global proc_poller
+    global cpu_poller
+    global mem_poller
+    global io_poller
+
+    loggers = []
+    if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
+    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
+    if (config.MYSQL_ENABLED): loggers.append(MySqlLogger())
+    if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
+    proc_poller = ProcPoller(loggers)
+    cpu_poller = CPUPoller(proc_poller, loggers)
+    mem_poller = MemPoller(proc_poller, loggers)
+    io_poller = IOPoller(loggers)
 
 def poll():
-    #int() converts argument to integer (string or float), in this case the float time
-#    epoch = int(time.time())
     cpu_poller.poll()
     mem_poller.poll()
     io_poller.poll()
 
 def run_poller():
+    init()
     while True:
         poll()
         time.sleep(config.INTERVAL)
