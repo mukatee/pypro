@@ -60,6 +60,10 @@ class CSVFileLogger:
         self.event_log.close()
         self.session_info_log.close()
 
+    def start(self): pass
+
+    def commit(self): pass
+
     def cpu_sys(self, epoch, user_count, system_count, idle_count, percent):
         "Logs CPU metrics at system level"
         line = str(epoch) + ";" + str(user_count) + ";" + str(system_count) + ";" + str(idle_count) + ";" + str(percent)

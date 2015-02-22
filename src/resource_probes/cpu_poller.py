@@ -38,9 +38,13 @@ class CPUPoller:
         epoch = int(time.time())
         self.poll_system(epoch)
 
+        before = int(time.time()*1000)
         for proc in psutil.process_iter():
             self.proc_poller.check_info(epoch, proc)
             self.poll_process(epoch, proc)
+        after = int(time.time()*1000)
+        diff = after-before
+        print("cpu_p:"+str(diff))
 
     def poll_process(self, epoch, proc):
         try:

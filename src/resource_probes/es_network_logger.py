@@ -22,6 +22,10 @@ class ESNetLogger:
     def close(self):
         pass
 
+    def start(self): pass
+
+    def commit(self): pass
+
     def session_info(self):
         now = int(time.time()) * 1000
         body = '{"description": "'+ config.SESSION_NAME + '", "start_time": ' + str(now) + '}'

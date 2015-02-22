@@ -48,9 +48,13 @@ class MemPoller:
         epoch *= 1000
         self.poll_system(epoch)
 
+        before = int(time.time() * 1000)
         for proc in psutil.process_iter():
             self.proc_poller.check_info(epoch, proc)
             self.poll_process(epoch, proc)
+        after = int(time.time() * 1000)
+        diff = after-before
+        print("mem_p:"+str(diff))
 
 if __name__ == "__main__":
     file = CSVFileLogger(True)

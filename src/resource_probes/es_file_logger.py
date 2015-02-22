@@ -38,6 +38,10 @@ class ESFileLogger:
         self.proc_info_log.close()
         self.event_log.close()
 
+    def start(self): pass
+
+    def commit(self): pass
+
     def session_info(self):
         now = int(time.time()) * 1000
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "session_info", "_id": "session-'+str(now)+'"}}\n'
