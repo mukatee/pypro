@@ -17,7 +17,8 @@ class ESNetLogger:
         self.proc_info_id = 1
         self.proc_error_id = 1
 
-        self.es = Elasticsearch()
+        self.es = Elasticsearch([config.ES_HOST+':'+str(config.ES_PORT)],
+                                sniff_on_start=True, sniff_on_connection_fail=True, sniffer_timeout=60)
 
     def close(self):
         pass
