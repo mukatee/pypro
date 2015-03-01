@@ -93,6 +93,7 @@ Start from the resource_probes.main(.py) module.
 
 Example use:
 
+`
 import resource_probes.config as config
 import resource_probes.main
 
@@ -100,6 +101,7 @@ config.ES_FILE_ENABLED = True
 config.CSV_ENABLED = False
 
 resource_probes.main.run_poller()
+`
 
 For configuration options, see [config.py](https://github.com/mukatee/pypro/blob/master/src/resource_probes/config.py).
 
