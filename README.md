@@ -8,10 +8,11 @@ Requirements
 ------------
 - Python3. Tested with 3.4.
 - PSUtil. The Python package used to read the resource metrics. Should install as dependency, otherwise "pip3 install psutil".
-- Elascticsearch package. "pip3 install elasticsearch".
+- Elascticsearch package. Should install as dependency, otherwise "pip3 install elasticsearch".
 - Mysql.connector. "pip3 install mysql-connector-python –allow-external mysql-connector-python"
 
 On a unix-based system you likely need to sudo yourself to install the dependencies, or this package itself (for pip3).
+If you know how to add an external dependency for the mysql.connector to the setup file so it is installed as dependency, let me know.
 
 Installation
 ------------

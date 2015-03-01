@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 from setuptools import setup
 
 setup(name='resource_probes',
-      version='0.1',
+      version='0.1.2',
       description='System resource probes',
       url='https://github.com/mukatee/pypro',
       author='Teemu Kanstren',
@@ -12,6 +12,6 @@ setup(name='resource_probes',
       packages=['resource_probes'],
       zip_safe=True,
       install_requires=[
-          'psutil',
+          'psutil', 'elasticsearch'
       ],
      )

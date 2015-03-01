@@ -44,7 +44,7 @@ class CPUPoller:
             self.poll_process(epoch, proc)
         after = int(time.time()*1000)
         diff = after-before
-        print("cpu_p:"+str(diff))
+        #print("cpu_p:"+str(diff))
 
     def poll_process(self, epoch, proc):
         try:

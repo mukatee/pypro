@@ -54,7 +54,7 @@ class MemPoller:
             self.poll_process(epoch, proc)
         after = int(time.time() * 1000)
         diff = after-before
-        print("mem_p:"+str(diff))
+        #print("mem_p:"+str(diff))
 
 if __name__ == "__main__":
     file = CSVFileLogger(True)
