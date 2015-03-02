@@ -45,7 +45,6 @@ class MemPoller:
         # int() converts argument to integer (string or float), in this case the float time
         epoch = int(time.time())
         #TODO: remove this multiplier and do modifications in loggers
-        epoch *= 1000
         self.poll_system(epoch)
 
         before = int(time.time() * 1000)
