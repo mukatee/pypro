@@ -89,6 +89,13 @@ Besides the above resource data fields ("metrics"), each recorded entry also con
 The timestamps are recorded as Epoch timestamps.
 Seconds for MySQL/CSV, milliseconds for Elasticsearch.
 
+NOTE: If you use Elasticsearch to store the data, you should use the
+[schema.json](https://github.com/mukatee/pypro/blob/master/src/resource_probes/config.py) file to set up the mapping.
+The mapping is the ES equivalent of a database schema.
+If you don't do this, the automatically generated schema will consider the timestamp as a "long" data type and
+any date related functions will be unavailable.
+For example, Kibana will not recognize is as a potential time column for visualization unless the type is correct.
+
 Usage
 -----
 Configuration is defined in the resource_probes/config.py file.

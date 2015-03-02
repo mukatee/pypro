@@ -12,6 +12,7 @@ stats for docs in specific index: curl localhost:9200/INDEXNAME/_stats/docs/
 index mappings (schema): curl -XGET 'http://localhost:9200/session1/_mapping'
 type mappings: curl -XGET 'http://localhost:9200/INDEXNAME/_mapping/TYPENAME'
 create mapping: curl -XPOST 'http://localhost:9200/INDEXNAME' --data-binary @FILENAME
+get items: curl -XGET 'http://192.168.2.79:9200/minecraft/_search?pretty=true&q=*:*'
 
 sometimes these commands might be shown as having “;echo” appended at the end.
 this helps in providing a newline as the returned data has no trailing newline otherwise (which can be confusing..)
@@ -19,3 +20,6 @@ this helps in providing a newline as the returned data has no trailing newline o
 kibana: y-axis = sum of cpu_system, buckets = x-axis, date histogram/second, sub-aggregation=split-bars, terms, pid
 
 psutil: cpu/process poll with interval makes you wait for the duration of interval
+
+huomioita:
+-have to create es schema myself to create epoch with data type "date"
