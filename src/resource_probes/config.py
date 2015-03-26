@@ -34,4 +34,4 @@ ES_INDEX = SESSION_NAME
 INTERVAL = 1
 
 #list of processes to poll. process names or ids. "-" to poll no processes, "*" to poll all processes.
-PROCESS_LIST = [839, 842]
+PROCESS_LIST = ["-"]

@@ -8,6 +8,7 @@ class ProcPoller:
     name_to_pid = {}
     #key = pid, value = name
     pid_to_name = {}
+    processes = {}
     pids = []
     errors = {}
 
@@ -32,27 +33,27 @@ class ProcPoller:
                     self.name_to_pid[self.get_name(proc)] = []
                     self.check_info(epoch, proc)
                 return
-#            if pid in self.name_to_pid:
-#                i_pid = self.name_to_pid[pid]
-#                self.name_to_pid[pid] = []
-#                proc = psutil.Process(i_pid)
-#                self.check_info(epoch, proc)
-#            else:
             self.name_to_pid[pid] = []
             for proc in psutil.process_iter():
-#                print("asking for "+str(proc))
                 if self.get_name(proc) == pid:
                     self.check_info(epoch, proc)
 
     def get_processes(self, pid):
         procs = []
         if isinstance(pid, int):
-            procs.append(psutil.Process(pid))
+            if pid in self.processes:
+                procs.append(self.processes[pid])
+            else:
+                procs.append(psutil.Process(pid))
         else:
             if pid in self.name_to_pid:
                 for i_pid in self.name_to_pid[pid]:
-                    proc = psutil.Process(i_pid)
-                    procs.append(proc)
+                    if i_pid in self.processes:
+                        procs.append(self.processes[i_pid])
+                    else:
+                        procs.append(psutil.Process(i_pid))
+#                    proc = psutil.Process(i_pid)
+#                    procs.append(proc)
         return procs
 
     def get_name(self, proc):
@@ -72,6 +73,7 @@ class ProcPoller:
             if self.pid_to_name[pid] == name:
                 return
         self.pid_to_name[pid] = name
+        self.processes[pid] = proc
         for logger in self.loggers:
             logger.proc_info(epoch, pid, name)
 

@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 from setuptools import setup
 
 setup(name='resource_probes',
-      version='0.2.0',
+      version='0.2.2',
       description='System resource probes',
       url='https://github.com/mukatee/pypro',
       author='Teemu Kanstren',

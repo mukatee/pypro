@@ -11,6 +11,8 @@ config.ES_NW_ENABLED = False
 config.ES_FILE_ENABLED = True
 config.INTERVAL = 1
 
+config.PROCESS_LIST = [1132]
+
 resource_probes.main.run_poller()
 
 
