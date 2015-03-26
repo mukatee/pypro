@@ -2,6 +2,8 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
+
+from resource_probes import config
 from resource_probes.csv_file_logger import CSVFileLogger
 from resource_probes.proc_poller import ProcPoller
 
@@ -30,12 +32,14 @@ class MemPoller:
     def poll_process(self, epoch, proc):
         try:
             pid = proc.pid
+            pname = self.proc_poller.get_name(proc)
             mem_info = proc.memory_info()
             rss = mem_info.rss
             vms = mem_info.vms
             prct = proc.memory_percent()
+
             for logger in self.loggers:
-                logger.mem_proc(epoch, pid, rss, vms, prct)
+                logger.mem_proc(epoch, pid, rss, vms, prct, pname)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             # if the process has disappeared, we get an exception and ignore it
             # pass <- pass is NOP in Python
@@ -48,9 +52,24 @@ class MemPoller:
         self.poll_system(epoch)
 
         before = int(time.time() * 1000)
-        for proc in psutil.process_iter():
-            self.proc_poller.check_info(epoch, proc)
-            self.poll_process(epoch, proc)
+
+        self.proc_poller.check_processes(epoch)
+        for pid in config.PROCESS_LIST:
+            if pid == "-": return
+            if pid == "*":
+                for proc in psutil.process_iter():
+                    self.proc_poller.check_info(epoch, proc)
+                    self.poll_process(epoch, proc)
+                return
+
+            processes = self.proc_poller.get_processes(pid)
+#            print("got "+str(processes)+" for "+str(pid))
+            for proc in processes:
+                self.poll_process(epoch, proc)
+
+#        for proc in psutil.process_iter():
+#            self.proc_poller.check_info(epoch, proc)
+#            self.poll_process(epoch, proc)
         after = int(time.time() * 1000)
         diff = after-before
         #print("mem_p:"+str(diff))

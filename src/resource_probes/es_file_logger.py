@@ -61,13 +61,14 @@ class ESFileLogger:
         self.cpu_system_log.flush()
         if config.PRINT_CONSOLE: print(line)
 
-    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent):
+    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent, pname):
         "Logs CPU metrics at process level"
         epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index" : "'+config.ES_INDEX+'", "_type" : "process_cpu", "_id" : "cpu_proc_'+str(self.cpu_proc_id)+'"}}\n'
         line += '{"time" : '+str(epoch) + ', "pid" : ' + str(pid) + ', "priority" : ' + str(priority) + ', '\
                 '"context_switches" : ' + str(ctx_count) + ', "threads" : ' + str(n_threads) + ', ' + \
-                '"cpu_user" : ' + str(cpu_user) + ', "cpu_system" : '+str(cpu_system) + ', "percent" : '+str(percent)+'}'
+                '"cpu_user" : ' + str(cpu_user) + ', "cpu_system" : '+str(cpu_system) + ', "percent" : '+str(percent) + \
+                ', "pname" : ' + pname + '}'
         self.cpu_proc_id += 1
         self.cpu_proc_log.write(line + "\n")
         self.cpu_proc_log.flush()
@@ -87,12 +88,12 @@ class ESFileLogger:
         self.mem_system_log.flush()
         if config.PRINT_CONSOLE: print(line)
 
-    def mem_proc(self, epoch, pid, rss, vms, percent):
+    def mem_proc(self, epoch, pid, rss, vms, percent, pname):
         "Logs memory metrics at process level"
         epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "process_memory", "_id": "mem_proc_'+str(self.mem_proc_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
-                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + '}'
+                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + ', "pname" : ' + pname + '}'
         self.mem_proc_id += 1
         self.mem_proc_log.write(line + "\n")
         self.mem_proc_log.flush()

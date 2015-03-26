@@ -46,7 +46,7 @@ class MySqlLogger:
         "Logs CPU metrics at system level"
         self.cursor.execute(self.insert_cpu_sys, (self.session_id, epoch, user_count, system_count, idle_count, percent))
 
-    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent):
+    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent, pname):
         "Logs CPU metrics at process level"
         self.cursor.execute(self.insert_cpu_proc, (self.session_id, epoch, pid, priority, ctx_count, n_threads,
                                                    cpu_user, cpu_system, cpu_percent))

@@ -1,31 +1,82 @@
 __author__ = 'teemu kanstren'
 
+from resource_probes import config
 import psutil
 
 class ProcPoller:
-    info = {}
+    #key = name, value = pid
+    name_to_pid = {}
+    #key = pid, value = name
+    pid_to_name = {}
+    pids = []
     errors = {}
 
     def __init__(self, loggers):
         self.loggers = loggers
 
-    def check_info(self, epoch, proc):
+    def check_processes(self, epoch):
+    #checks all processes to poll if the pid is already stored and name is known
+    #if pid is stored and name matches, does nothing
+    #if pid is stored and name does not match, replaces name mapping with new one
+    #if pid is not stored, reads the name and creates the mapping
+        self.name_to_pid = {}
+        for pid in config.PROCESS_LIST:
+            if isinstance(pid, int):
+                proc = psutil.Process(pid)
+                self.name_to_pid[self.get_name(proc)] = []
+                self.check_info(epoch, proc)
+                continue
+            if pid == "-": return
+            if pid == "*":
+                for proc in psutil.process_iter():
+                    self.name_to_pid[self.get_name(proc)] = []
+                    self.check_info(epoch, proc)
+                return
+#            if pid in self.name_to_pid:
+#                i_pid = self.name_to_pid[pid]
+#                self.name_to_pid[pid] = []
+#                proc = psutil.Process(i_pid)
+#                self.check_info(epoch, proc)
+#            else:
+            self.name_to_pid[pid] = []
+            for proc in psutil.process_iter():
+#                print("asking for "+str(proc))
+                if self.get_name(proc) == pid:
+                    self.check_info(epoch, proc)
+
+    def get_processes(self, pid):
+        procs = []
+        if isinstance(pid, int):
+            procs.append(psutil.Process(pid))
+        else:
+            if pid in self.name_to_pid:
+                for i_pid in self.name_to_pid[pid]:
+                    proc = psutil.Process(i_pid)
+                    procs.append(proc)
+        return procs
+
+    def get_name(self, proc):
         try:
             name = proc.name()
         except(psutil.NoSuchProcess, psutil.AccessDenied):
-            name = "?"
-        if proc.pid in self.info:
-            if self.info[proc.pid] == name:
+            name = "? ("+str(proc.pid)+")"
+        return name
+
+    def check_info(self, epoch, proc):
+        name = self.get_name(proc)
+        pid = proc.pid
+
+        self.name_to_pid[name].append(pid)
+
+        if pid in self.pid_to_name:
+            if self.pid_to_name[pid] == name:
                 return
-        self.info[proc.pid] = name
+        self.pid_to_name[pid] = name
         for logger in self.loggers:
-            logger.proc_info(epoch, proc.pid, name)
+            logger.proc_info(epoch, pid, name)
 
     def handle_process_poll_error(self, epoch, proc):
-        try:
-            name = proc.name()
-        except(psutil.NoSuchProcess, psutil.AccessDenied):
-            name = "? ("+proc.pid+")"
+        name = self.get_name(proc)
         if proc.pid in self.errors:
             if self.errors[proc.pid] == name:
                 return

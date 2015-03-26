@@ -71,9 +71,9 @@ class CSVFileLogger:
         self.cpu_system_log.flush()
         if config.PRINT_CONSOLE: print(line)
 
-    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent):
+    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent, pname):
         "Logs CPU metrics at process level"
-        line = str(epoch) + ": " + str(pid) + ";" + str(priority) + ";" + str(ctx_count) + ";" + \
+        line = str(epoch) + ";" + str(pid) + ";" + str(priority) + ";" + str(ctx_count) + ";" + \
             str(n_threads) + ";" + str(cpu_user) + ";" + str(cpu_system) + ";" + str(cpu_percent)
         self.cpu_proc_log.write(line + "\n")
         self.cpu_proc_log.flush()
@@ -89,9 +89,9 @@ class CSVFileLogger:
         self.mem_system_log.flush()
         if config.PRINT_CONSOLE: print(line)
 
-    def mem_proc(self, epoch, pid, rss, vms, percent):
+    def mem_proc(self, epoch, pid, rss, vms, percent, pname):
         "Logs memory metrics at process level"
-        line = str(epoch) + ":" + str(pid) + ";" + str(rss) + ";" + str(vms) + ";" + str(percent)
+        line = str(epoch) + ";" + str(pid) + ";" + str(rss) + ";" + str(vms) + ";" + str(percent)
         self.mem_proc_log.write(line + "\n")
         self.mem_proc_log.flush()
         if config.PRINT_CONSOLE: print(line)

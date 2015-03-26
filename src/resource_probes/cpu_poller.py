@@ -39,9 +39,18 @@ class CPUPoller:
         self.poll_system(epoch)
 
         before = int(time.time()*1000)
-        for proc in psutil.process_iter():
-            self.proc_poller.check_info(epoch, proc)
-            self.poll_process(epoch, proc)
+        self.proc_poller.check_processes(epoch)
+        for pid in config.PROCESS_LIST:
+            if pid == "-": return
+            if pid == "*":
+                for proc in psutil.process_iter():
+                    self.proc_poller.check_info(epoch, proc)
+                    self.poll_process(epoch, proc)
+                return
+            processes = self.proc_poller.get_processes(pid)
+#            print("got "+str(processes)+" for "+str(pid))
+            for proc in processes:
+                self.poll_process(epoch, proc)
         after = int(time.time()*1000)
         diff = after-before
         #print("cpu_p:"+str(diff))
@@ -49,6 +58,7 @@ class CPUPoller:
     def poll_process(self, epoch, proc):
         try:
             pid = proc.pid
+            pname = self.proc_poller.get_name(proc)
             priority = proc.nice()
             #status is a text indicator such as "running". ignoring for now.
             #        status = proc.status()
@@ -60,7 +70,7 @@ class CPUPoller:
             cpu_system = cpu_times.system
             cpu_percent = proc.cpu_percent()
             for logger in self.loggers:
-                logger.cpu_proc(epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent)
+                logger.cpu_proc(epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, cpu_percent, pname)
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             #if the process has disappeared, we get an exception and ignore it
             #pass <- pass is NOP in Python

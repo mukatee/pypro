@@ -9,7 +9,8 @@
           "priority":{"type":"long"},
           "threads":{"type":"long"},
           "time":{"type":"date"},
-          "percent":{"type":"double"}
+          "percent":{"type":"double"},
+          "pname":{"type":"string"}
         }
       },
     "system_memory":
@@ -75,7 +76,8 @@
           "pid":{"type":"long"},
           "rss":{"type":"long"},
           "time":{"type":"date"},
-          "vms":{"type":"long"}
+          "vms":{"type":"long"},
+          "pname":{"type":"string"}
         }
       },
     "session_info":

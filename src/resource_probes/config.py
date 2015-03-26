@@ -5,7 +5,7 @@ MYSQL_ENABLED = False
 #log directly into elasticsearch (over the network)
 ES_NW_ENABLED = False
 #log to file using elasticsearch bulk format
-ES_FILE_ENABLED = False
+ES_FILE_ENABLED = True
 #log into a file using CSV format
 CSV_ENABLED = True
 #print log data to console (CSV/ES only)
@@ -32,3 +32,6 @@ ES_INDEX = SESSION_NAME
 
 #polling interval. this is the time the poller sleeps between reading and writing values.
 INTERVAL = 1
+
+#list of processes to poll. process names or ids. "-" to poll no processes, "*" to poll all processes.
+PROCESS_LIST = [839, 842]

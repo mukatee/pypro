@@ -43,12 +43,13 @@ class ESNetLogger:
         self.cpu_sys_id += 1
         if config.PRINT_CONSOLE: print(reply)
 
-    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent):
+    def cpu_proc(self, epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent, pname):
         "Logs CPU metrics at process level"
         epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "priority": ' + str(priority) + ', '\
                 '"context_switches": ' + str(ctx_count) + ', "threads": ' + str(n_threads) + ', ' + \
-                '"cpu_user": ' + str(cpu_user) + ', "cpu_system": '+str(cpu_system) + ', "percent": '+str(percent)+'}'
+                '"cpu_user" : ' + str(cpu_user) + ', "cpu_system" : '+str(cpu_system) + ', "percent" : '+str(percent) + \
+                ', "pname" : ' + pname + '}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="process_cpu", id="cpu_proc_"+str(self.cpu_proc_id), body=body)
         self.cpu_proc_id += 1
         if config.PRINT_CONSOLE: print(reply)
@@ -65,11 +66,11 @@ class ESNetLogger:
         self.mem_sys_id += 1
         if config.PRINT_CONSOLE: print(reply)
 
-    def mem_proc(self, epoch, pid, rss, vms, percent):
+    def mem_proc(self, epoch, pid, rss, vms, percent, pname):
         "Logs memory metrics at process level"
         epoch *= 1000 #this converts it into milliseconds
         body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
-                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + '}'
+                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + ', "pname" : ' + pname + '}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="process_memory", id="mem_proc_"+str(self.mem_proc_id), body=body)
         self.mem_proc_id += 1
         if config.PRINT_CONSOLE: print(reply)
