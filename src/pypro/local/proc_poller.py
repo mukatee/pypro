@@ -1,6 +1,6 @@
 __author__ = 'teemu kanstren'
 
-from resource_probes import config
+from pypro.local import config
 import psutil
 
 class ProcPoller:

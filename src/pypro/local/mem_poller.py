@@ -3,9 +3,9 @@ __author__ = 'teemu kanstren'
 import psutil
 import time
 
-from resource_probes import config
-from resource_probes.csv_file_logger import CSVFileLogger
-from resource_probes.proc_poller import ProcPoller
+from pypro.local import config
+from pypro.local.csv_file_logger import CSVFileLogger
+from pypro.local.proc_poller import ProcPoller
 
 class MemPoller:
     def __init__(self, proc_poller, loggers):

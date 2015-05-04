@@ -1,7 +1,7 @@
 __author__ = 'teemu kanstren'
 
-import resource_probes.main
-import resource_probes.config as config
+import pypro.local.main
+import pypro.local.config as config
 
 config.CSV_ENABLED = False
 config.MYSQL_HOST = "192.168.2.79"
@@ -13,7 +13,7 @@ config.INTERVAL = 1
 
 config.PROCESS_LIST = [1132]
 
-resource_probes.main.run_poller()
+pypro.local.main.run_poller()
 
 
 

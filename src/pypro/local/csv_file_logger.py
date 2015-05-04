@@ -1,7 +1,7 @@
 __author__ = 'teemu kanstren'
 
-import resource_probes.utils as utils
-import resource_probes.config as config
+import pypro.local.utils as utils
+import pypro.local.config as config
 import time
 
 class CSVFileLogger:

@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-from resource_probes.csv_file_logger import CSVFileLogger
+from pypro.local.csv_file_logger import CSVFileLogger
 
 class IOPoller:
     def __init__(self, loggers):

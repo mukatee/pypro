@@ -1,8 +1,7 @@
 __author__ = 'teemu kanstren'
 
 import time
-import resource_probes.config as config
-import mysql.connector
+import pypro.local.config as config
 
 class MySqlLogger:
     insert_session = "INSERT INTO session_info (description, start_time) VALUES (%s, %s)"
@@ -24,6 +23,7 @@ class MySqlLogger:
                      "VALUES (%s, %s, %s, %s)"
 
     def __init__(self):
+        import mysql.connector
         self.conn = mysql.connector.connect(user=config.MYSQL_USER, password=config.MYSQL_PW,
                                       host=config.MYSQL_HOST,
                                       database=config.MYSQL_DB)

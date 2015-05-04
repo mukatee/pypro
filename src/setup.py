@@ -2,14 +2,14 @@ __author__ = 'teemu kanstren'
 
 from setuptools import setup
 
-setup(name='resource_probes',
-      version='0.2.2',
+setup(name='pypro-local',
+      version='0.3.0',
       description='System resource probes',
       url='https://github.com/mukatee/pypro',
       author='Teemu Kanstren',
       author_email='tkanstren@gmail.com',
       license='MIT',
-      packages=['resource_probes'],
+      packages=['pypro'],
       zip_safe=True,
       install_requires=[
           'psutil', 'elasticsearch'

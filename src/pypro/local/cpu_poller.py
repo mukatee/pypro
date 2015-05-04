@@ -2,10 +2,10 @@ __author__ = 'teemu kanstren'
 
 import psutil
 import time
-import resource_probes.config as config
-from resource_probes.proc_poller import ProcPoller
-from resource_probes.csv_file_logger import CSVFileLogger
-from resource_probes.es_file_logger import ESFileLogger
+import pypro.local.config as config
+from pypro.local.proc_poller import ProcPoller
+from pypro.local.csv_file_logger import CSVFileLogger
+from pypro.local.es_file_logger import ESFileLogger
 
 class CPUPoller:
     # process priority
