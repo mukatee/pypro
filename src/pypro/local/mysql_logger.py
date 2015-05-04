@@ -57,7 +57,7 @@ class MySqlLogger:
         self.cursor.execute(self.insert_mem_sys, (self.session_id, epoch, available, percent, used, free,
                                                   swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent))
 
-    def mem_proc(self, epoch, pid, rss, vms, percent):
+    def mem_proc(self, epoch, pid, rss, vms, percent, pname):
         "Logs memory metrics at process level"
         self.cursor.execute(self.insert_mem_proc, (self.session_id, epoch, pid, rss, vms, percent))
 
