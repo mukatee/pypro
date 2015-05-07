@@ -1,0 +1,3 @@
+to successfully connect, need to edit server.properties for kafka and set "advertised.host.name=IPADDRESS" where
+IPADDRESS is the IP address of the host running the Kafka server.
+

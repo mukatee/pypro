@@ -9,7 +9,7 @@ setup(name='pypro-local',
       author='Teemu Kanstren',
       author_email='tkanstren@gmail.com',
       license='MIT',
-      packages=['pypro'],
+      packages=['pypro', 'pypro.local'],
       zip_safe=True,
       install_requires=[
           'psutil', 'elasticsearch'

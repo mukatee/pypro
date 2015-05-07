@@ -30,6 +30,9 @@ SESSION_NAME = "session1"
 #name of the elasticsearch index to write logs into
 ES_INDEX = SESSION_NAME
 
+KAFKA_HOST = "localhost"
+KAFKA_PORT = 9092
+
 #polling interval. this is the time the poller sleeps between reading and writing values.
 INTERVAL = 1
 
