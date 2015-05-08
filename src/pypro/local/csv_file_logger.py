@@ -8,44 +8,44 @@ class CSVFileLogger:
     def __init__(self):
         utils.check_dir()
 
-        self.session_info_log = open(utils.log_dir+"session-info.csv", "w", encoding="utf-8")
+        self.session_info_log = open(utils.session_log+".csv", "w", encoding="utf-8")
         session_info_header = "time;description"
         now = int(time.time())
         self.session_info_log.write(session_info_header + "\n")
         self.session_info_log.write(str(now) + ";" + config.SESSION_NAME + "\n")
         self.session_info_log.flush()
 
-        self.cpu_system_log = open(utils.log_dir+"cpu-log-sys.csv", "w", encoding="utf-8")
+        self.cpu_system_log = open(utils.cpu_sys_log+".csv", "w", encoding="utf-8")
         cpu_sys_header = "time;user;system;idle;percentage"
         self.cpu_system_log.write(cpu_sys_header + "\n")
         self.cpu_system_log.flush()
 
-        self.cpu_proc_log = open(utils.log_dir+"cpu-log-proc.csv", "w", encoding="utf-8")
+        self.cpu_proc_log = open(utils.cpu_proc_log+".csv", "w", encoding="utf-8")
         cpu_proc_header = "time;pid;priority;context-switches;n-of-threads;user;system;percent"
         self.cpu_proc_log.write(cpu_proc_header + "\n")
         self.cpu_proc_log.flush()
 
-        self.mem_system_log = open(utils.log_dir+"mem-log-sys.csv", "w", encoding="utf-8")
+        self.mem_system_log = open(utils.mem_sys_log+".csv", "w", encoding="utf-8")
         mem_sys_header = "time;available;percentage;used;free;swap-total;swap-used;swap-free;swap-in;swap-out;swap-percentage"
         self.mem_system_log.write(mem_sys_header + "\n")
         self.mem_system_log.flush()
 
-        self.mem_proc_log = open(utils.log_dir+"mem-log-proc.csv", "w", encoding="utf-8")
+        self.mem_proc_log = open(utils.mem_proc_log+".csv", "w", encoding="utf-8")
         mem_proc_header = "time;pid;real-use;virtual-use;percentage"
         self.mem_proc_log.write(mem_proc_header + "\n")
         self.mem_proc_log.flush()
 
-        self.io_system_log = open(utils.log_dir+"io-log-sys.csv", "w", encoding="utf-8")
+        self.io_system_log = open(utils.io_sys_log+".csv", "w", encoding="utf-8")
         io_sys_header = "time;bytes-sent;bytes-received;packets-sent;packets-received;errors-in;errors-out;dropped-in;dropped-out"
         self.io_system_log.write(io_sys_header + "\n")
         self.io_system_log.flush()
 
-        self.proc_info_log = open(utils.log_dir+"proc-log-info.csv", "w", encoding="utf-8")
+        self.proc_info_log = open(utils.proc_info_log+".csv", "w", encoding="utf-8")
         proc_info_header = "time;pid;name"
         self.proc_info_log.write(proc_info_header + "\n")
         self.proc_info_log.flush()
 
-        self.event_log = open(utils.log_dir+"event-log.csv", "w", encoding="utf-8")
+        self.event_log = open(utils.proc_error_log+".csv", "w", encoding="utf-8")
         event_header = "time;type;pid;description"
         self.event_log.write(event_header + "\n")
         self.event_log.flush()

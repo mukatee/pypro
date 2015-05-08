@@ -8,26 +8,26 @@ class ESFileLogger:
     def __init__(self):
         utils.check_dir()
 
-        self.session_log = open(utils.log_dir+"session-info-log.es", "w", encoding="utf-8")
+        self.session_log = open(utils.session_log+".es", "w", encoding="utf-8")
         self.session_info()
 
         self.cpu_sys_id = 1
-        self.cpu_system_log = open(utils.log_dir+"cpu-sys-log.es", "w", encoding="utf-8")
+        self.cpu_system_log = open(utils.cpu_sys_log+".es", "w", encoding="utf-8")
         self.cpu_proc_id = 1
-        self.cpu_proc_log = open(utils.log_dir+"cpu-proc-log.es", "w", encoding="utf-8")
+        self.cpu_proc_log = open(utils.cpu_proc_log+".es", "w", encoding="utf-8")
 
         self.mem_sys_id = 1
-        self.mem_system_log = open(utils.log_dir+"mem-sys-log.es", "w", encoding="utf-8")
+        self.mem_system_log = open(utils.mem_sys_log+".es", "w", encoding="utf-8")
         self.mem_proc_id = 1
-        self.mem_proc_log = open(utils.log_dir+"mem-proc-log.es", "w", encoding="utf-8")
+        self.mem_proc_log = open(utils.mem_proc_log+".es", "w", encoding="utf-8")
 
         self.io_sys_id = 1
-        self.io_system_log = open(utils.log_dir+"io-sys-log.es", "w", encoding="utf-8")
+        self.io_system_log = open(utils.io_sys_log+".es", "w", encoding="utf-8")
 
         self.proc_info_id = 1
-        self.proc_info_log = open(utils.log_dir+"proc-info-log.es", "w", encoding="utf-8")
+        self.proc_info_log = open(utils.proc_info_log+".es", "w", encoding="utf-8")
         self.event_id = 1
-        self.event_log = open(utils.log_dir+"event-log.es", "w", encoding="utf-8")
+        self.event_log = open(utils.proc_error_log+".es", "w", encoding="utf-8")
 
     def close(self):
         self.cpu_system_log.close()
@@ -68,7 +68,7 @@ class ESFileLogger:
         line += '{"time" : '+str(epoch) + ', "pid" : ' + str(pid) + ', "priority" : ' + str(priority) + ', '\
                 '"context_switches" : ' + str(ctx_count) + ', "threads" : ' + str(n_threads) + ', ' + \
                 '"cpu_user" : ' + str(cpu_user) + ', "cpu_system" : '+str(cpu_system) + ', "percent" : '+str(percent) + \
-                ', "pname" : ' + pname + '}'
+                ', "pname" : "' + pname + '"}'
         self.cpu_proc_id += 1
         self.cpu_proc_log.write(line + "\n")
         self.cpu_proc_log.flush()
@@ -93,7 +93,7 @@ class ESFileLogger:
         epoch *= 1000 #this converts it into milliseconds
         line = '{"index" : { "_index": "'+config.ES_INDEX+'", "_type": "process_memory", "_id": "mem_proc_'+str(self.mem_proc_id)+'"}}\n'
         line += '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
-                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + ', "pname" : ' + pname + '}'
+                '"vms": ' + str(vms) + ', "percent": ' + str(percent) + ', "pname" : "' + pname + '"}'
         self.mem_proc_id += 1
         self.mem_proc_log.write(line + "\n")
         self.mem_proc_log.flush()

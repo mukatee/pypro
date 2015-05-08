@@ -1,0 +1,6 @@
+time;available;percentage;used;free;swap-total;swap-used;swap-free;swap-in;swap-out;swap-percentage
+0;1;1;1;1;1;1;1;1;1;1
+10;2;2;2;2;2;2;2;2;2;2
+12;34;654;24;33;23;442;1;13;21;44
+15;3445;345;345;44;745;367;32;1111;33;55
+33;33;453;998;347;976;8544;45;5555;66;33

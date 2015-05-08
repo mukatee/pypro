@@ -1,0 +1,5 @@
+time;bytes-sent;bytes-received;packets-sent;packets-received;errors-in;errors-out;dropped-in;dropped-out
+11111;22;22;34;43;11;11;5;3
+22222;55;23;44;34;23;17;15;4
+22233;65;23;777;44;28;18;35;5
+25555;78;44;1911;53;99434;43;43;21
