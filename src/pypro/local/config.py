@@ -32,6 +32,7 @@ ES_INDEX = SESSION_NAME
 
 KAFKA_HOST = "localhost"
 KAFKA_PORT = 9092
+KAFKA_TOPIC = "pypro"
 
 #polling interval. this is the time the poller sleeps between reading and writing values.
 INTERVAL = 1

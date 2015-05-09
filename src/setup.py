@@ -12,6 +12,6 @@ setup(name='pypro-local',
       packages=['pypro', 'pypro.local'],
       zip_safe=True,
       install_requires=[
-          'psutil', 'elasticsearch'
+          'psutil', 'elasticsearch', 'kafka-python'
       ],
      )
