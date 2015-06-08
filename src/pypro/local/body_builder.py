@@ -26,7 +26,7 @@ def cpu_proc(epoch, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, p
 def mem_sys(epoch, available, percent, used, free,
             swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent):
     "Logs memory metrics at system level"
-    body = '{"time" : '+str(epoch) + ', "available": ' + str(available) + ', "percent" : ' + str(percent) + ', ' +\
+    body = '{"time" : '+str(epoch) + ', "available" : ' + str(available) + ', "percent" : ' + str(percent) + ', ' +\
             '"used" : ' + str(used) + ', "free" : ' + str(free) + ', "swap_total" : ' + str(swap_total) + ', ' + \
             '"swap_used" : ' + str(swap_used) + ', "swap_free" : ' + str(swap_free) + ', "swap_in" : ' + str(swap_in) + ', ' + \
             '"swap_out" : ' + str(swap_out) + ', "swap_percent" : '+str(swap_percent)+'}'
@@ -34,8 +34,8 @@ def mem_sys(epoch, available, percent, used, free,
 
 def mem_proc(epoch, pid, rss, vms, percent, pname):
     "Logs memory metrics at process level"
-    body = '{"time": '+str(epoch) + ', "pid": ' + str(pid) + ', "rss": ' + str(rss) + ', '\
-            '"vms": ' + str(vms) + ', "percent": ' + str(percent) + ', "pname" : "' + pname + '"}'
+    body = '{"time" : '+str(epoch) + ', "pid" : ' + str(pid) + ', "rss" : ' + str(rss) + ', '\
+            '"vms" : ' + str(vms) + ', "percent" : ' + str(percent) + ', "pname" : "' + pname + '"}'
     return body
 
 def io_sys(epoch, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout):

@@ -1,3 +1,10 @@
 to successfully connect, need to edit server.properties for kafka and set "advertised.host.name=IPADDRESS" where
 IPADDRESS is the IP address of the host running the Kafka server.
 
+no leader error:
+rm /tmp/kafka
+rm /tmp/zookeeper
+
+to get fast emptying kafka:
+log.retention.ms=5000
+log.retention.check.interval.ms=10000

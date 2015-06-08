@@ -23,8 +23,8 @@ class TestESLogs(unittest.TestCase):
         es.cpu_sys(5, 155, 122, 12, 22)
         es.close()
         actual = open(utils.cpu_sys_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_cpu_sys.es').decode('utf8')
-        self.assertEqual(actual, expected)
+        expected = pkg_resources.resource_string(__name__, 'expected_cpu_sys.es').decode('utf8')
+        self.assertEqualLF(actual, expected)
 
     def test_cpu_proc_es(self):
         es = ESFileLogger()
@@ -39,7 +39,9 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.cpu_proc_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_cpu_proc.es').decode('utf8')
-        self.assertMultiLineEqual(actual, expected)
+#        print(self.unify_line_separators(actual))
+#        print(self.unify_line_separators(expected))
+        self.assertMultiLineEqualLF(actual, expected)
 
     def test_mem_sys_es(self):
         es = ESFileLogger()
@@ -51,7 +53,7 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.mem_sys_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_mem_sys.es').decode('utf8')
-        self.assertEqual(actual, expected)
+        self.assertEqualLF(actual, expected)
 
     def test_mem_proc_es(self):
         es = ESFileLogger()
@@ -66,7 +68,7 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.mem_proc_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_mem_proc.es').decode('utf8')
-        self.assertMultiLineEqual(actual, expected)
+        self.assertMultiLineEqualLF(actual, expected)
 
     def test_io_sys_es(self):
         es = ESFileLogger()
@@ -77,7 +79,7 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.io_sys_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_io_sys.es').decode('utf8')
-        self.assertEqual(actual, expected)
+        self.assertEqualLF(actual, expected)
 
     def test_proc_error_es(self):
         es = ESFileLogger()
@@ -87,7 +89,7 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.proc_error_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_events.es').decode('utf8')
-        self.assertEqual(actual, expected)
+        self.assertEqualLF(actual, expected)
 
     def test_proc_info_es(self):
         es = ESFileLogger()
@@ -98,4 +100,19 @@ class TestESLogs(unittest.TestCase):
         es.close()
         actual = open(utils.proc_info_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_proc_info.es').decode('utf8')
-        self.assertEqual(actual, expected)
+        self.assertEqualLF(actual, expected)
+
+    def assertEqualLF(self, actual, expected):
+        actual = self.unify_line_separators(actual)
+        expected = self.unify_line_separators(expected)
+        self.assertEqual(expected, actual)
+
+    def unify_line_separators(self, line):
+        line = line.replace("\r\n", "\n")
+        line = line.replace("\r", "\n")
+        return line
+
+    def assertMultiLineEqualLF(self, actual, expected):
+        actual = self.unify_line_separators(actual)
+        expected = self.unify_line_separators(expected)
+        self.assertMultiLineEqual(expected, actual)
