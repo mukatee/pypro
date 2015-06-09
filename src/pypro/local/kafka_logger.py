@@ -9,8 +9,8 @@ class KafkaLogger:
     def __init__(self):
         from kafka import SimpleProducer, KafkaClient
         from kafka.common import LeaderNotAvailableError
-        kafka_client = KafkaClient(config.KAFKA_SERVER)
-        self.kafka = SimpleProducer(kafka_client)
+        self.kafka_client = KafkaClient(config.KAFKA_SERVER)
+        self.kafka = SimpleProducer(self.kafka_client)
         self.cpu_sys_id = 1
         self.cpu_proc_id = 1
 
@@ -29,7 +29,8 @@ class KafkaLogger:
             time.sleep(1)
 
     def close(self):
-        pass
+        self.kafka.stop(0)
+        self.kafka_client.close()
 
     def start(self): pass
 
@@ -50,7 +51,7 @@ class KafkaLogger:
         header = self.head.create('system_cpu', 'cpu_sys_'+str(self.cpu_sys_id))
 #        header = '{"doc_type": "system_cpu", "id": "cpu_sys_'+str(self.cpu_sys_id)+'"'+'}'
         msg = '{"header": '+ header + ', "body":'+ body+'}'
-        print("posting to server "+config.KAFKA_SERVER+" on topic:"+config.KAFKA_TOPIC)
+#        print("posting to server "+config.KAFKA_SERVER+" on topic:"+config.KAFKA_TOPIC)
         self.kafka.send_messages(config.KAFKA_TOPIC, msg.encode("utf8"))
         self.cpu_sys_id += 1
 #        if config.PRINT_CONSOLE: print(reply)
