@@ -1,15 +1,17 @@
 __author__ = 'teemu'
 
 import time
-import pypro.local.config as config
+
+import pypro.config as config
 from pypro.local.cpu_poller import CPUPoller
 from pypro.local.mem_poller import MemPoller
 from pypro.local.io_poller import IOPoller
-from pypro.local.es_network_logger import ESNetLogger
-from pypro.local.es_file_logger import ESFileLogger
-from pypro.local.csv_file_logger import CSVFileLogger
+from pypro.local.loggers.es_network_logger import ESNetLogger
+from pypro.loggers.es_file_logger import ESFileLogger
+from pypro.loggers.csv_file_logger import CSVFileLogger
 from pypro.local.proc_poller import ProcPoller
-from pypro.local.mysql_logger import MySqlLogger
+from pypro.loggers.mysql_logger import MySqlLogger
+
 
 def init():
     global loggers

@@ -1,11 +1,14 @@
 __author__ = 'teemu kanstren'
 
-import psutil
 import time
-import pypro.local.config as config
+
+import psutil
+
+import pypro.config as config
 from pypro.local.proc_poller import ProcPoller
-from pypro.local.csv_file_logger import CSVFileLogger
-from pypro.local.es_file_logger import ESFileLogger
+from pypro.local.loggers import CSVFileLogger
+from pypro.local.loggers import ESFileLogger
+
 
 class CPUPoller:
     # process priority

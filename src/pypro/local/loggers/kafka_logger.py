@@ -1,9 +1,11 @@
 __author__ = 'teemu kanstren'
 
 import time
-from pypro.local import config
+
+from pypro import config
 import pypro.local.body_builder as bb
-from pypro.local.head_builder import HeadBuilder
+from pypro.head_builder import HeadBuilder
+
 
 class KafkaLogger:
     def __init__(self):

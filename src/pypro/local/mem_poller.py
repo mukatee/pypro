@@ -1,11 +1,13 @@
 __author__ = 'teemu kanstren'
 
-import psutil
 import time
 
-from pypro.local import config
-from pypro.local.csv_file_logger import CSVFileLogger
+import psutil
+
+from pypro import config
+from pypro.local.loggers import CSVFileLogger
 from pypro.local.proc_poller import ProcPoller
+
 
 class MemPoller:
     def __init__(self, proc_poller, loggers):

@@ -1,7 +1,9 @@
 __author__ = 'teemu kanstren'
 
 import time
-import pypro.local.config as config
+
+import pypro.config as config
+
 
 class MySqlLogger:
     insert_session = "INSERT INTO session_info (description, start_time) VALUES (%s, %s)"

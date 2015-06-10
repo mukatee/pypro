@@ -1,9 +1,12 @@
 __author__ = 'teemu kanstren'
 
 import time
+
 from elasticsearch import Elasticsearch
-import pypro.local.config as config
+
+import pypro.config as config
 import pypro.local.body_builder as bb
+
 
 class ESNetLogger:
     def __init__(self):

@@ -1,8 +1,10 @@
 
 __author__ = 'teemu kanstren'
 
-from pypro.local import config
 import psutil
+
+from pypro import config
+
 
 class ProcPoller:
     #key = name, value = pid

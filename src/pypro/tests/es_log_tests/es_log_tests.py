@@ -3,11 +3,18 @@ __author__ = 'teemu kanstren'
 import os
 import unittest
 import shutil
+
 import pkg_resources
-import pypro.local.utils as utils
-from pypro.local.es_file_logger import ESFileLogger
-import pypro.local.config as config
+
+from pypro.local.loggers import ESFileLogger
+from pypro import utils
 import pypro.tests.t_assert as t_assert
+
+
+
+
+
+
 
 #weird regex syntax, pattern required, weird errors...
 

@@ -1,16 +1,16 @@
 __author__ = 'teemu kanstren'
 
-import time
 import os
 import unittest
-from pypro.local.kafka_logger import KafkaLogger
-from pypro.tests.kafka_log_tests.consumer_thread import ConsumerThread
-import pypro.local.config as config
-import pypro.tests.t_assert as t_assert
+
 import pkg_resources
-from kafka import KafkaConsumer
 from kafka.consumer.simple import SimpleConsumer
-from kafka import SimpleProducer, KafkaClient
+from kafka import KafkaClient
+
+from pypro.local.loggers import KafkaLogger
+import pypro.config as config
+import pypro.tests.t_assert as t_assert
+
 
 class TestKafkaLogs(unittest.TestCase):
     topic_index = 1

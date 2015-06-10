@@ -1,8 +1,11 @@
 __author__ = 'teemu kanstren'
 
-import psutil
 import time
-from pypro.local.csv_file_logger import CSVFileLogger
+
+import psutil
+
+from pypro.local.loggers import CSVFileLogger
+
 
 class IOPoller:
     def __init__(self, loggers):

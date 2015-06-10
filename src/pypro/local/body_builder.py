@@ -1,7 +1,9 @@
 __author__ = 'teemu kanstren'
 
 import time
-import pypro.local.config as config
+
+import pypro.config as config
+
 
 def session_info():
     now = int(time.time()) * 1000

@@ -1,8 +1,10 @@
 __author__ = 'teemu kanstren'
 
-import pypro.local.utils as utils
-import pypro.local.config as config
 import time
+
+import pypro.utils as utils
+import pypro.config as config
+
 
 class CSVFileLogger:
     def __init__(self):
