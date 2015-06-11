@@ -39,4 +39,4 @@ INTERVAL = 1
 #list of processes to poll. process names or ids. "-" to poll no processes, "*" to poll all processes.
 PROCESS_LIST = ["*"]
 
-SNMP_OIDS = {}
+SNMP_OIDS = []

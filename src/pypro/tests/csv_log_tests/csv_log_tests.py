@@ -99,7 +99,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.proc_error(11111, 9758, "fail")
         csv.proc_error(11112, 7364, "little fail")
         csv.close()
-        actual = open(utils.proc_error_log+".csv").read()
+        actual = open(utils.event_log+".csv").read()
         expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_events.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)

@@ -98,7 +98,7 @@ class TestESLogs(unittest.TestCase):
         es.proc_error(11111, 9758, "fail")
         es.proc_error(11112, 7364, "little fail")
         es.close()
-        actual = open(utils.proc_error_log+".es").read()
+        actual = open(utils.event_log+".es").read()
         expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_events.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)

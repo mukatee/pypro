@@ -7,10 +7,10 @@ from pypro.local.cpu_poller import CPUPoller
 from pypro.local.mem_poller import MemPoller
 from pypro.local.io_poller import IOPoller
 from pypro.local.loggers.es_network_logger import ESNetLogger
-from pypro.loggers.es_file_logger import ESFileLogger
-from pypro.loggers.csv_file_logger import CSVFileLogger
+from pypro.local.loggers.es_file_logger import ESFileLogger
+from pypro.local.loggers.csv_file_logger import CSVFileLogger
 from pypro.local.proc_poller import ProcPoller
-from pypro.loggers.mysql_logger import MySqlLogger
+from pypro.local.loggers.mysql_logger import MySqlLogger
 
 
 def init():

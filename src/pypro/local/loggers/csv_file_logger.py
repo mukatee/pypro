@@ -47,7 +47,7 @@ class CSVFileLogger:
         self.proc_info_log.write(proc_info_header + "\n")
         self.proc_info_log.flush()
 
-        self.event_log = open(utils.proc_error_log+".csv", "w", encoding="utf-8")
+        self.event_log = open(utils.event_log+".csv", "w", encoding="utf-8")
         event_header = "time;type;pid;description"
         self.event_log.write(event_header + "\n")
         self.event_log.flush()

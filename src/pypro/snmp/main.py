@@ -7,37 +7,36 @@ from pysnmp.entity.rfc3413.oneliner import cmdgen
 import pypro.config as config
 from pypro.snmp.loggers.es_network_logger import ESNetLogger
 from pypro.snmp.loggers.es_file_logger import ESFileLogger
-from pypro.snmp.loggers.csv_file_logger import CSVFileLogger
-from pypro.snmp.loggers.mysql_logger import MySqlLogger
-
+from pypro.snmp.loggers.csv_logger import CSVFileLogger
+from pypro.snmp.oid import OID
+from pypro.snmp.snmp_poller import SNMPPoller
 
 #resource OID's on linux: http://www.debianadmin.com/linux-snmp-oids-for-cpumemory-and-disk-statistics.html
 #snmpwalk = get the whole subtree from given node
 #snmpgetnext = get next for given value in tree. looping gives walk.
 
 def init():
-    global cmd_gen
+#    global cmd_gen
     global loggers
-    cmd_gen = cmdgen.CommandGenerator()
+#    global oids
+    snmp = cmdgen.CommandGenerator()
     loggers = []
-    if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
-    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
-    if (config.MYSQL_ENABLED): loggers.append(MySqlLogger())
-    if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
+    oids = []
+#    if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
+#    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
+    if (config.CSV_ENABLED): loggers.append(CSVFileLogger(config.SNMP_OIDS))
 
     global pollers
-
-
+    pollers = []
+    for oid in config.SNMP_OIDS:
+        pollers.append(SNMPPoller(oid, snmp, loggers))
+    epoch = int(time.time())
+    for logger in loggers:
+        logger.start(epoch)
 
 def poll():
-    for logger in loggers:
-        logger.start()
-
     for poller in pollers:
-        poller.poll(loggers)
-
-    for logger in loggers:
-        logger.commit()
+        poller.poll()
 
 def run_poller():
 #    time_this("init:", init)
@@ -45,6 +44,12 @@ def run_poller():
     while True:
         poll()
         time.sleep(config.INTERVAL)
+    shutdown()
+
+def shutdown():
+    epoch = int(time.time())
+    for logger in loggers:
+        logger.stop(epoch)
 
 if __name__ == "__main__":
     print ("start at:"+str(int(time.time())))

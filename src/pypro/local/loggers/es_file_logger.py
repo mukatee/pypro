@@ -33,7 +33,7 @@ class ESFileLogger:
         self.proc_info_id = 1
         self.proc_info_log = open(utils.proc_info_log+".es", "w", encoding="utf-8")
         self.event_id = 1
-        self.event_log = open(utils.proc_error_log+".es", "w", encoding="utf-8")
+        self.event_log = open(utils.event_log+".es", "w", encoding="utf-8")
 
     def close(self):
         self.cpu_system_log.close()
