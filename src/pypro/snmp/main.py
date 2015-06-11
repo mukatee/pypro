@@ -22,9 +22,9 @@ def init():
     snmp = cmdgen.CommandGenerator()
     loggers = []
     oids = []
-#    if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
+    if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
 #    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
-    if (config.CSV_ENABLED): loggers.append(CSVFileLogger(config.SNMP_OIDS))
+    if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
 
     global pollers
     pollers = []

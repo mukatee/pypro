@@ -6,15 +6,9 @@ import shutil
 
 import pkg_resources
 
-from pypro.local.loggers import ESFileLogger
+from pypro.local.loggers.es_file_logger import ESFileLogger
 from pypro import utils
 import pypro.tests.t_assert as t_assert
-
-
-
-
-
-
 
 #weird regex syntax, pattern required, weird errors...
 

@@ -9,7 +9,8 @@ import pypro.config as config
 class CSVFileLogger:
     files = {}
 
-    def __init__(self, oids):
+    def __init__(self):
+        oids = config.SNMP_OIDS
         utils.check_dir()
 
         self.event_log = open(utils.event_log+".csv", "w", encoding="utf-8")
@@ -28,19 +29,18 @@ class CSVFileLogger:
     def close(self):
         for file in self.files:
             file.close()
+        self.event_log.close()
 
     def start(self, epoch):
         line = str(epoch) + ";info;session started ("+config.SESSION_NAME+")"
         self.event_log.write(line + "\n")
         self.event_log.flush()
-        #TODO: move console prints to own logger
         if config.PRINT_CONSOLE: print(line)
 
     def stop(self, epoch):
         line = str(epoch) + ";info;session stopped ("+config.SESSION_NAME+")"
         self.event_log.write(line + "\n")
         self.event_log.flush()
-        #TODO: move console prints to own logger
         if config.PRINT_CONSOLE: print(line)
         self.close()
 
