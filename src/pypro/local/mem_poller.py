@@ -4,8 +4,8 @@ import time
 
 import psutil
 
-from pypro import config
-from pypro.local.loggers import CSVFileLogger
+from pypro.local import config
+from pypro.local.loggers.csv_file_logger import CSVFileLogger
 from pypro.local.proc_poller import ProcPoller
 
 

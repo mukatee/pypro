@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 
 import psutil
 
-from pypro import config
+from pypro.local import config
 
 
 class ProcPoller:

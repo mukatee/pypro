@@ -1,7 +1,5 @@
 __author__ = 'teemu kanstren'
 
-import time
-
 import pypro.utils as utils
 import pypro.snmp.config as config
 

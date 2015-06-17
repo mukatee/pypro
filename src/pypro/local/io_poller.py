@@ -4,7 +4,7 @@ import time
 
 import psutil
 
-from pypro.local.loggers import CSVFileLogger
+from pypro.local.loggers.csv_file_logger import CSVFileLogger
 
 
 class IOPoller:
@@ -32,7 +32,7 @@ class IOPoller:
         self.poll_system(epoch)
 
 if __name__ == "__main__":
-    file = CSVFileLogger(True)
+    file = CSVFileLogger()
     io_poller = IOPoller(file)
     while (True):
         io_poller.poll()

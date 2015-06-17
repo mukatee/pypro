@@ -9,7 +9,6 @@ from pypro.snmp.loggers.es_network_logger import ESNetLogger
 from pypro.snmp.loggers.es_file_logger import ESFileLogger
 from pypro.snmp.loggers.csv_logger import CSVFileLogger
 from pypro.snmp.loggers.kafka_logger import KafkaLogger
-from pypro.snmp.oid import OID
 from pypro.snmp.snmp_poller import SNMPPoller
 
 #resource OID's on linux: http://www.debianadmin.com/linux-snmp-oids-for-cpumemory-and-disk-statistics.html

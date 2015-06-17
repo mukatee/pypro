@@ -2,7 +2,7 @@ __author__ = 'teemu'
 
 import time
 
-import pypro.config as config
+import pypro.local.config as config
 from pypro.local.cpu_poller import CPUPoller
 from pypro.local.mem_poller import MemPoller
 from pypro.local.io_poller import IOPoller

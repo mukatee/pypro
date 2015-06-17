@@ -4,10 +4,10 @@ import time
 
 import psutil
 
-import pypro.config as config
+import pypro.local.config as config
 from pypro.local.proc_poller import ProcPoller
-from pypro.local.loggers import CSVFileLogger
-from pypro.local.loggers import ESFileLogger
+from pypro.local.loggers.csv_file_logger import CSVFileLogger
+from pypro.local.loggers.es_file_logger import ESFileLogger
 
 
 class CPUPoller:

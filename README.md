@@ -1,14 +1,20 @@
 Python Resource Probes
 ======================
 
+Python probes for collecting information about system resources.
+Two versions, one that collects detailed information about the host it is running on.
+And another one that performs SNMP queries over the network to collect data from other hosts.
+
 Records statistics related to system resource use. Based on the *psutil* library.
 Built using Python 3.4. No idea about workings with other versions.
 
 Requirements
 ------------
 - Python3. Tested with 3.4.
-- PSUtil. The Python package used to read the resource metrics. Should install as dependency, otherwise "pip3 install psutil".
+- PSUtil (for local). The Python package used to read the resource metrics. Should install as dependency, otherwise "pip3 install psutil".
+- PySNMP (for SNMP). The Python package used to perform SNMP queries.
 - Elascticsearch package. Should install as dependency, otherwise "pip3 install elasticsearch".
+- Python Kafka package. Should install as dependency. Otherwise "pip3 install kafka-python".
 - Mysql.connector. "pip3 install mysql-connector-python --allow-external mysql-connector-python" or possibly
 "sudo pip3 install --allow-external mysql-connector-python mysql-connector-python".
 
@@ -17,7 +23,8 @@ If you know how to add an external dependency for the mysql.connector to the set
 
 Installation
 ------------
-"pip3 install resource_probes". Or just get the source and go with it.
+"pip3 install pypro-local" for the local version. Or just get the source and go with it.
+"pip3 install pypro-snmp" for the SNMP version. Or just get the source and go with it.
 
 Data stores
 -----------
@@ -25,10 +32,11 @@ Supported logging targets are:
 - CSV file
 - Elasticsearch bulk import file
 - Elasticsearch database
-- MySQL database
+- MySQL database (local only currently)
+- Kafka producer
 
-Metrics
--------
+Metrics (local)
+---------------
 The data collected consists of that supported by *psutil*.
 Suggest to check [psutil](http://pythonhosted.org/psutil/) docs for more info.
 As a summary the collected data contains:
@@ -98,24 +106,59 @@ If you don't do this, the automatically generated schema will consider the times
 any date related functions will be unavailable.
 For example, Kibana will not recognize is as a potential time column for visualization unless the type is correct.
 
-Usage
------
-Configuration is defined in the resource_probes/config.py file.
-Start from the resource_probes.main(.py) module.
+Usage (local)
+-------------
+Configuration is defined in the pypro.local.config.py file.
+Start from the pypro.local.main(.py) module.
 
 Example use:
 
 ```python
-import resource_probes.config as config
-import resource_probes.main
+import pypro.local.main
+import pypro.local.config as config
 
 config.ES_FILE_ENABLED = True
 config.CSV_ENABLED = False
 
-resource_probes.main.run_poller()
+pypro.local.main.run_poller()
 ```
 
-For configuration options, see [config.py](https://github.com/mukatee/pypro/blob/master/src/resource_probes/config.py).
+For the example code, see [example.py](https://github.com/mukatee/pypro/blob/master/src/pypro/local/example.py).
+
+For configuration options, see [config.py](https://github.com/mukatee/pypro/blob/master/src/pypro/local/config.py).
+
+Metrics (SNMP)
+--------------
+
+You can use any SNMP OID supported by your target device.
+
+Usage (SNMP)
+------------
+Configuration is defined in the pypro.snmp.config.py file.
+Start from the pypro.snmp.main(.py) module.
+
+Example use:
+
+```python
+import pypro.snmp.config as config
+from pypro.snmp.oid import OID
+import pypro.snmp.main as main
+
+config.ES_FILE_ENABLED = True
+config.CSV_ENABLED = False
+
+#raw user space cpu time
+config.SNMP_OIDS.append(OID('1.3.6.1.4.1.2021.11.50.0', 'user cpu time', 'public', '192.168.2.1', 161, 'router', True))
+#percentage of user space cpu time
+config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.11.9.0', 'percentage user cpu time', 'public', '192.168.2.1', 161, 'router', True))
+
+main.run_poller()
+```
+
+For the example code, see [example.py](https://github.com/mukatee/pypro/blob/master/src/pypro/snmp/example.py).
+
+For configuration options, see [config.py](https://github.com/mukatee/pypro/blob/master/src/pypro/snmp/config.py).
+
 
 License
 -------

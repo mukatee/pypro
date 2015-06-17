@@ -1,11 +1,8 @@
 __author__ = 'teemu kanstren'
 
-import time
-
 from elasticsearch import Elasticsearch
 
 import pypro.snmp.config as config
-import pypro.local.body_builder as bb
 
 
 class ESNetLogger:

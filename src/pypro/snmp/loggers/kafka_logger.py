@@ -3,7 +3,6 @@ __author__ = 'teemu kanstren'
 import time
 
 from pypro.snmp import config
-import pypro.local.body_builder as bb
 from pypro.head_builder import HeadBuilder
 
 
