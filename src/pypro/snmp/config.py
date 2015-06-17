@@ -29,3 +29,9 @@ KAFKA_TOPIC = "pypro"
 INTERVAL = 1
 
 SNMP_OIDS = []
+SNMP_AUTH = False
+SNMP_USER = 'my_user'
+SNMP_PASS = 'my_password'
+SNMP_PRIVKEY = 'my_privacykey'
+SNMP_AUTH_PROTO = 'SHA'
+SNMP_PRIV_PROTO = 'AES'
