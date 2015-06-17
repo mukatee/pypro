@@ -5,14 +5,15 @@ Python probes for collecting information about system resources.
 Two versions, one that collects detailed information about the host it is running on.
 And another one that performs SNMP queries over the network to collect data from other hosts.
 
-Records statistics related to system resource use. Based on the *psutil* library.
+Local version is based on the *psutil* library.
+SNMP version is based on the *pysnmp* library.
 Built using Python 3.4. No idea about workings with other versions.
 
 Requirements
 ------------
 - Python3. Tested with 3.4.
-- PSUtil (for local). The Python package used to read the resource metrics. Should install as dependency, otherwise "pip3 install psutil".
-- PySNMP (for SNMP). The Python package used to perform SNMP queries.
+- PSUtil (for pypro-local). The Python package used to read the resource metrics. Should install as dependency, otherwise "pip3 install psutil".
+- PySNMP (for pypro-snmp). The Python package used to perform SNMP queries. Should install as dependency, otherwise "pip3 install pysnmp".
 - Elascticsearch package. Should install as dependency, otherwise "pip3 install elasticsearch".
 - Python Kafka package. Should install as dependency. Otherwise "pip3 install kafka-python".
 - Mysql.connector. "pip3 install mysql-connector-python --allow-external mysql-connector-python" or possibly
@@ -23,8 +24,8 @@ If you know how to add an external dependency for the mysql.connector to the set
 
 Installation
 ------------
-"pip3 install pypro-local" for the local version. Or just get the source and go with it.
-"pip3 install pypro-snmp" for the SNMP version. Or just get the source and go with it.
+- "pip3 install pypro-local" for the local version. Or just get the source and go with it.
+- "pip3 install pypro-snmp" for the SNMP version. Or just get the source and go with it.
 
 Data stores
 -----------
@@ -32,11 +33,11 @@ Supported logging targets are:
 - CSV file
 - Elasticsearch bulk import file
 - Elasticsearch database
-- MySQL database (local only currently)
+- MySQL database (for pypro-local only currently)
 - Kafka producer
 
-Metrics (local)
----------------
+Metrics (pypro-local)
+---------------------
 The data collected consists of that supported by *psutil*.
 Suggest to check [psutil](http://pythonhosted.org/psutil/) docs for more info.
 As a summary the collected data contains:
@@ -106,8 +107,8 @@ If you don't do this, the automatically generated schema will consider the times
 any date related functions will be unavailable.
 For example, Kibana will not recognize is as a potential time column for visualization unless the type is correct.
 
-Usage (local)
--------------
+Usage (pypro-local)
+-------------------
 Configuration is defined in the pypro.local.config.py file.
 Start from the pypro.local.main(.py) module.
 
@@ -127,13 +128,13 @@ For the example code, see [example.py](https://github.com/mukatee/pypro/blob/mas
 
 For configuration options, see [config.py](https://github.com/mukatee/pypro/blob/master/src/pypro/local/config.py).
 
-Metrics (SNMP)
---------------
+Metrics (pypro-snmp)
+--------------------
 
 You can use any SNMP OID supported by your target device.
 
-Usage (SNMP)
-------------
+Usage (pypro-snmp)
+------------------
 Configuration is defined in the pypro.snmp.config.py file.
 Start from the pypro.snmp.main(.py) module.
 
