@@ -4,7 +4,7 @@ import time
 
 from elasticsearch import Elasticsearch
 
-import pypro.config as config
+import pypro.snmp.config as config
 import pypro.local.body_builder as bb
 
 

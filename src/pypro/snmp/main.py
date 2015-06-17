@@ -4,14 +4,16 @@ import time
 
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 
-import pypro.config as config
+import pypro.snmp.config as config
 from pypro.snmp.loggers.es_network_logger import ESNetLogger
 from pypro.snmp.loggers.es_file_logger import ESFileLogger
 from pypro.snmp.loggers.csv_logger import CSVFileLogger
+from pypro.snmp.loggers.kafka_logger import KafkaLogger
 from pypro.snmp.oid import OID
 from pypro.snmp.snmp_poller import SNMPPoller
 
 #resource OID's on linux: http://www.debianadmin.com/linux-snmp-oids-for-cpumemory-and-disk-statistics.html
+#also http://kaivanov.blogspot.fi/2012/02/linux-snmp-oids-for-cpumemory-and-disk.html
 #snmpwalk = get the whole subtree from given node
 #snmpgetnext = get next for given value in tree. looping gives walk.
 
@@ -23,8 +25,9 @@ def init():
     loggers = []
     oids = []
     if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
-#    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
+    if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
     if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
+    if (config.KAFKA_ENABLED): loggers.append(KafkaLogger())
 
     global pollers
     pollers = []

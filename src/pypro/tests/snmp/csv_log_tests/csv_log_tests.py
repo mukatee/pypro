@@ -6,15 +6,9 @@ import shutil
 
 import pkg_resources
 
-from pypro.local.loggers import CSVFileLogger
+from pypro.local.loggers.csv_file_logger import CSVFileLogger
 from pypro import utils
 import pypro.tests.t_assert as t_assert
-
-
-
-
-
-
 
 #weird regex syntax, pattern required, weird errors...
 
@@ -32,7 +26,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.cpu_sys(5, 155, 122, 12, 22)
         csv.close()
         actual = open(utils.cpu_sys_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_cpu_sys.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_cpu_sys.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual+"a", expected)
 
@@ -48,7 +42,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.cpu_proc(20, 3, 2, 555, 7, 11, 55, 32, "p3")
         csv.close()
         actual = open(utils.cpu_proc_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_cpu_proc.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_cpu_proc.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertMultiLineEqualLF(actual, expected)
 
@@ -61,7 +55,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.mem_sys(33, 33, 453, 998, 347, 976, 8544, 45, 5555, 66, 33)
         csv.close()
         actual = open(utils.mem_sys_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_mem_sys.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_mem_sys.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -77,7 +71,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.mem_proc(66, 5432, 212, 334, 44, "p3")
         csv.close()
         actual = open(utils.mem_proc_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_mem_proc.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_mem_proc.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertMultiLineEqualLF(actual, expected)
 
@@ -89,7 +83,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.io_sys(25555, 78, 44, 1911, 53, 99434, 43, 43, 21)
         csv.close()
         actual = open(utils.io_sys_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_io_sys.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_io_sys.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -100,7 +94,7 @@ class TestCSVLogs(unittest.TestCase):
         csv.proc_error(11112, 7364, "little fail")
         csv.close()
         actual = open(utils.event_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_events.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_events.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -112,6 +106,6 @@ class TestCSVLogs(unittest.TestCase):
         csv.proc_info(11111, 3332, "proc3")
         csv.close()
         actual = open(utils.proc_info_log+".csv").read()
-        expected = pkg_resources.resource_string('pypro.tests.csv_log_tests', 'expected_proc_info.csv').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_proc_info.csv').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)

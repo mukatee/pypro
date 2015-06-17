@@ -41,7 +41,8 @@ class TestESLogs(unittest.TestCase):
         es.cpu_proc(20, 3, 2, 555, 7, 11, 55, 32, "p3")
         es.close()
         actual = open(utils.cpu_proc_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_cpu_proc.es').decode('utf8')
+        #what is the diff with __name__ vs self.__module__? who knows..
+        expected = pkg_resources.resource_string(self.__module__, 'expected_cpu_proc.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertMultiLineEqualLF(actual, expected)
 
@@ -54,7 +55,7 @@ class TestESLogs(unittest.TestCase):
         es.mem_sys(33, 33, 453, 998, 347, 976, 8544, 45, 5555, 66, 33)
         es.close()
         actual = open(utils.mem_sys_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_mem_sys.es').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_mem_sys.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -70,7 +71,7 @@ class TestESLogs(unittest.TestCase):
         es.mem_proc(66, 5432, 212, 334, 44, "p3")
         es.close()
         actual = open(utils.mem_proc_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_mem_proc.es').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_mem_proc.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertMultiLineEqualLF(actual, expected)
 
@@ -82,7 +83,7 @@ class TestESLogs(unittest.TestCase):
         es.io_sys(25555, 78, 44, 1911, 53, 99434, 43, 43, 21)
         es.close()
         actual = open(utils.io_sys_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_io_sys.es').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_io_sys.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -93,7 +94,7 @@ class TestESLogs(unittest.TestCase):
         es.proc_error(11112, 7364, "little fail")
         es.close()
         actual = open(utils.event_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_events.es').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_events.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 
@@ -105,7 +106,7 @@ class TestESLogs(unittest.TestCase):
         es.proc_info(11111, 3332, "proc3")
         es.close()
         actual = open(utils.proc_info_log+".es").read()
-        expected = pkg_resources.resource_string('pypro.tests.es_log_tests', 'expected_proc_info.es').decode('utf8')
+        expected = pkg_resources.resource_string(self.__module__, 'expected_proc_info.es').decode('utf8')
         t_assert.equal(actual, expected)
 #        self.assertEqualLF(actual, expected)
 

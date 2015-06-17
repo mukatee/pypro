@@ -2,7 +2,7 @@ __author__ = 'teemu kanstren'
 
 import time
 
-import pypro.config as config
+import pypro.local.config as config
 
 
 class MySqlLogger:

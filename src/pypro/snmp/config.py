@@ -10,15 +10,7 @@ ES_FILE_ENABLED = False
 CSV_ENABLED = True
 #print log data to console (CSV/ES only)
 PRINT_CONSOLE = False
-
-#host address for mysql server
-MYSQL_HOST = "localhost"
-#username for mysql db
-MYSQL_USER = "pypro"
-#password for mysql db
-MYSQL_PW = "omg-change-this-pw"
-#mysql db name
-MYSQL_DB = "pypro_db"
+KAFKA_ENABLED = False
 
 #elasticsearch server host address
 ES_HOST = "localhost"
@@ -35,8 +27,5 @@ KAFKA_TOPIC = "pypro"
 
 #polling interval. this is the time the poller sleeps between reading and writing values.
 INTERVAL = 1
-
-#list of processes to poll. process names or ids. "-" to poll no processes, "*" to poll all processes.
-PROCESS_LIST = ["*"]
 
 SNMP_OIDS = []

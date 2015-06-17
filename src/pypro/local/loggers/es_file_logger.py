@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 import time
 
 import pypro.utils as utils
-import pypro.config as config
+import pypro.local.config as config
 import pypro.local.body_builder as bb
 from pypro.head_builder import HeadBuilder
 

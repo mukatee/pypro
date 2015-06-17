@@ -3,8 +3,7 @@ __author__ = 'teemu kanstren'
 import time
 
 import pypro.utils as utils
-import pypro.config as config
-
+import pypro.snmp.config as config
 
 class CSVFileLogger:
     files = {}
