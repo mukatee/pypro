@@ -1,0 +1,39 @@
+{
+  "mappings": {
+    "measurement": {
+      "properties": {
+        "oid": {
+          "type": "string"
+        },
+        "oid_name": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "target_name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "date"
+        },
+        "value": {
+          "type": "long"
+        },
+        "str_value": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "event": {
+    "properties": {
+      "session_info": {
+        "type": "string"
+      },
+      "time": {
+        "type": "date"
+      }
+    }
+  }
+}

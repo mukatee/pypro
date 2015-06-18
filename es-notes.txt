@@ -24,4 +24,5 @@ psutil: cpu/process poll with interval makes you wait for the duration of interv
 notes:
 -have to create es schema myself to create epoch with data type "date"
 -even with cygwin, these commands do not seem to work well on windows (curl)
+-schema mapping commands at https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
 

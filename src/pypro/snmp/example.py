@@ -1,14 +1,18 @@
 __author__ = 'teemu kanstren'
 
+#http://www.mibdepot.com/cgi-bin/getmib3.cgi?i=1&n=UCD-SNMP-MIB&r=f5&f=UCD-SNMP-MIB&v=v2&t=tree
+
 import pypro.snmp.config as config
 from pypro.snmp.oid import OID
 import pypro.snmp.main as main
 
+config.SESSION_NAME = "session2"
+config.ES_INDEX = "pypro-snmp"
 config.ES_NW_ENABLED = False
-config.ES_FILE_ENABLED = False
+config.ES_FILE_ENABLED = True
 config.CSV_ENABLED = True
-config.KAFKA_ENABLED = False
-config.KAFKA_TOPIC = "asus"
+config.KAFKA_ENABLED = True
+config.KAFKA_TOPIC = "session2"
 config.KAFKA_SERVER = "192.168.2.153"
 config.PRINT_CONSOLE = True
 #raw user space cpu time
@@ -24,7 +28,7 @@ config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.11.53.0', 'idle cpu time', 'publi
 #percentage of idle time
 config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.11.11.0', 'percentage idle cpu time', 'public', '192.168.2.1', 161, 'router', True))
 #total ram used
-config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.4.6.0', 'total RAM used', 'public', '192.168.2.1', 161, 'router', True))
+config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.4.5.0', 'total RAM available', 'public', '192.168.2.1', 161, 'router', True))
 #total ram free
 config.SNMP_OIDS.append(OID('.1.3.6.1.4.1.2021.4.11.0', 'total RAM free', 'public', '192.168.2.1', 161, 'router', True))
 #available disk space, requires modifying snmp config on host

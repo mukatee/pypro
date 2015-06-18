@@ -3,14 +3,14 @@ __author__ = 'teemu kanstren'
 #log into mysql? you can use create_db.sql file to create the schema
 MYSQL_ENABLED = False
 #log directly into elasticsearch (over the network)
-ES_NW_ENABLED = True
+ES_NW_ENABLED = False
 #log to file using elasticsearch bulk format
 ES_FILE_ENABLED = False
 #log into a file using CSV format
 CSV_ENABLED = True
 #print log data to console (CSV/ES only)
 PRINT_CONSOLE = False
-KAFKA_ENABLED = False
+KAFKA_ENABLED = True
 
 #elasticsearch server host address
 ES_HOST = "localhost"

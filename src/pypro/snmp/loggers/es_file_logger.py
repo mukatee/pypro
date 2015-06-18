@@ -30,6 +30,7 @@ class ESFileLogger:
         self.event_log.close()
 
     def start(self, epoch):
+        epoch *= 1000 #this converts it into milliseconds
         head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "session_info" : "start"}'
         line = head + body
@@ -39,6 +40,7 @@ class ESFileLogger:
         if config.PRINT_CONSOLE: print(line)
 
     def stop(self, epoch):
+        epoch *= 1000
         head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "session_info" : "stop"}'
         line = head + body
@@ -47,18 +49,23 @@ class ESFileLogger:
         self.event_id += 1
         if config.PRINT_CONSOLE: print(line)
 
-    def value(self, epoch, oid, _value):
+    def value(self, epoch, oid, value):
+        epoch *= 1000
         name = oid._name()
         index = self.indices[name]
         index += 1
         self.indices[name] = index
-        value = str(_value)
-        if (not oid.numeric):
-            value = '"'+value+'"'
+        str_value = str(value)
+        if not oid.numeric or not utils.is_number(str_value):
+            str_value = '"'+str_value+'"'
+#        else:
+#            if not utils.is_number(str_value):
+#                self.error(epoch, "Numeric OID "+oid.oid+" produced non-numeric value:"+str_value)
+#                return
         head = '{"index" : ' + self.head.create(name, name + '_' + str(index)) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
                '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid) + '", ' + \
-               '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + value + '}'
+               '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
         line = head + body
         log = self.files[oid.oid]
         log.write(line + "\n")
@@ -66,6 +73,7 @@ class ESFileLogger:
         if config.PRINT_CONSOLE: print(line)
 
     def error(self, epoch, description):
+        epoch *= 1000
         head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "error" : "' + description + '"}'
         line = head + body

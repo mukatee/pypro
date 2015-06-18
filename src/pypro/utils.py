@@ -15,3 +15,14 @@ proc_info_log = log_dir+"proc-log-info"
 def check_dir():
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+def isnumber(x):
+    "Is x a number? We say it is if it has an __int__ method."
+    return hasattr(x, '__int__')

@@ -11,6 +11,7 @@ from pypro.local.loggers.es_file_logger import ESFileLogger
 from pypro.local.loggers.csv_file_logger import CSVFileLogger
 from pypro.local.proc_poller import ProcPoller
 from pypro.local.loggers.mysql_logger import MySqlLogger
+from pypro.local.loggers.kafka_logger import KafkaLogger
 
 
 def init():
@@ -25,6 +26,7 @@ def init():
     if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
     if (config.MYSQL_ENABLED): loggers.append(MySqlLogger())
     if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
+    if (config.KAFKA_ENABLED): loggers.append(KafkaLogger())
     proc_poller = ProcPoller(loggers)
     cpu_poller = CPUPoller(proc_poller, loggers)
     mem_poller = MemPoller(proc_poller, loggers)
