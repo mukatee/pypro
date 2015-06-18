@@ -18,7 +18,7 @@ config.PRINT_CONSOLE = True
 
 config.INTERVAL = 1
 
-config.PROCESS_LIST = ["iperf.exe"]
+config.PROCESS_LIST = ["iperf"]
 
 pypro.local.main.run_poller()
 
