@@ -8,7 +8,7 @@ from kafka.consumer.simple import SimpleConsumer
 from kafka import KafkaClient
 
 from pypro.local.loggers.kafka_logger import KafkaLogger
-import pypro.config as config
+import pypro.local.config as config
 import pypro.tests.t_assert as t_assert
 
 

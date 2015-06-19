@@ -1,0 +1,3 @@
+{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_1"}, "body":{"time" : 11111, "error" : "epic fail"}}
+{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_2"}, "body":{"time" : 11111, "error" : "fail"}}
+{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_3"}, "body":{"time" : 11112, "error" : "little fail"}}

@@ -1,0 +1,11 @@
+{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_1"}, "body":{"start_time" : 0, "session_info" : "start"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid3_1"}, "body":{"time" : 0, "target" : "127.0.0.1:155", "target_name" : "test target 3", "oid" : "1.1.1.2.1", "oid_name" : "test_oid3", "str_value" : "omg its bob
+
+on the line"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid4_1"}, "body":{"time" : 1, "target" : "127.0.0.1:233", "target_name" : "test target 4", "oid" : "1.1.1.2.1.0", "oid_name" : "test_oid4", "str_value" : "now for bunnies.."}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid3_2"}, "body":{"time" : 1, "target" : "127.0.0.1:155", "target_name" : "test target 3", "oid" : "1.1.1.2.1", "oid_name" : "test_oid3", "str_value" : "this is a test
+with linefeed"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid4_2"}, "body":{"time" : 2, "target" : "127.0.0.1:233", "target_name" : "test target 4", "oid" : "1.1.1.2.1.0", "oid_name" : "test_oid4", "str_value" : "once upon a time"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid3_3"}, "body":{"time" : 2, "target" : "127.0.0.1:155", "target_name" : "test target 3", "oid" : "1.1.1.2.1", "oid_name" : "test_oid3", "str_value" : "hello"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid3_4"}, "body":{"time" : 2, "target" : "127.0.0.1:155", "target_name" : "test target 3", "oid" : "1.1.1.2.1", "oid_name" : "test_oid3", "str_value" : "11"}}
+{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid3_5"}, "body":{"time" : 2, "target" : "127.0.0.1:155", "target_name" : "test target 3", "oid" : "1.1.1.2.1", "oid_name" : "test_oid3", "str_value" : "ok passed?"}}

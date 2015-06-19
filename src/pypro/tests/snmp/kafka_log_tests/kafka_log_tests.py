@@ -7,10 +7,10 @@ import pkg_resources
 from kafka.consumer.simple import SimpleConsumer
 from kafka import KafkaClient
 
-from pypro.local.loggers.kafka_logger import KafkaLogger
-import pypro.config as config
+from pypro.snmp.loggers.kafka_logger import KafkaLogger
+import pypro.snmp.config as config
 import pypro.tests.t_assert as t_assert
-
+from pypro.snmp.oid import OID
 
 class TestKafkaLogs(unittest.TestCase):
     topic_index = 1
@@ -18,82 +18,76 @@ class TestKafkaLogs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         config.KAFKA_SERVER = os.environ["PYPRO_KAFKA_SERVER"]
+        TestKafkaLogs.oid1 = OID("1.1.1.1.1", "test_oid1", "public", "127.0.0.1", 55, "test target 1", True)
+        TestKafkaLogs.oid2 = OID("1.1.1.1.1.0", "test_oid2", "private", "127.0.0.1", 255, "test target 2", True)
+        TestKafkaLogs.oid3 = OID("1.1.1.2.1", "test_oid3", "public", "127.0.0.1", 155, "test target 3", False)
+        TestKafkaLogs.oid4 = OID("1.1.1.2.1.0", "test_oid4", "private", "127.0.0.1", 233, "test target 4", False)
+        config.SNMP_OIDS.append(TestKafkaLogs.oid1)
+        config.SNMP_OIDS.append(TestKafkaLogs.oid2)
+        config.SNMP_OIDS.append(TestKafkaLogs.oid3)
+        config.SNMP_OIDS.append(TestKafkaLogs.oid4)
 
     def setUp(self):
         config.KAFKA_TOPIC = "pypro_tests_" + str(self.topic_index)
         TestKafkaLogs.topic_index += 1
 
-    def test_cpu_sys_kafka(self):
+    def test_numeric_oid_kafka(self):
         kafka = KafkaLogger()
-        kafka.cpu_sys(0, 1, 1, 1, 1)
-        kafka.cpu_sys(1, 3, 2, 5, 6)
-        kafka.cpu_sys(3, 22, 99, 11, 4)
-        kafka.cpu_sys(5, 155, 122, 12, 22)
+        kafka.start(0)
+        kafka.value(0, TestKafkaLogs.oid1, 1)
+        kafka.value(1, TestKafkaLogs.oid1, 5)
+        kafka.value(1, TestKafkaLogs.oid2, 7)
+        kafka.value(2, TestKafkaLogs.oid2, 9)
+        kafka.value(2, TestKafkaLogs.oid1, 11)
+        kafka.value(2, TestKafkaLogs.oid1, "bomb on this")
+        kafka.value(2, TestKafkaLogs.oid1, 12)
         kafka.close()
 
-        self.assert_kafka('expected_cpu_sys.kafka')
+        self.assert_kafka('expected_numeric.kafka')
 
-    def test_cpu_proc_kafka(self):
+    def test_string_oid_kafka(self):
         kafka = KafkaLogger()
-        kafka.cpu_proc(0, 1, 1, 1, 1, 1, 1, 1, "p1")
-        kafka.cpu_proc(0, 2, 1, 3, 4, 2, 3, 1, "p2")
-        kafka.cpu_proc(0, 3, 2, 122, 7, 5, 8, 11, "p3")
-        kafka.cpu_proc(10, 1, 1, 1, 1, 1, 1, 1, "p1")
-        kafka.cpu_proc(10, 2, 1, 3, 4, 2, 3, 1, "p2")
-        kafka.cpu_proc(10, 3, 2, 122, 7, 5, 8, 11, "p3")
-        kafka.cpu_proc(20, 1, 1, 5, 1, 4, 3, 2, "p1")
-        kafka.cpu_proc(20, 3, 2, 555, 7, 11, 55, 32, "p3")
+        kafka.start(0)
+        kafka.value(0, TestKafkaLogs.oid3, "omg its bob\n\ron the line")
+        kafka.value(1, TestKafkaLogs.oid4, "now for bunnies..")
+        kafka.value(1, TestKafkaLogs.oid3, "this is a test\nwith linefeed")
+        kafka.value(2, TestKafkaLogs.oid4, "once upon a time")
+        kafka.value(2, TestKafkaLogs.oid3, "hello")
+        kafka.value(2, TestKafkaLogs.oid3, 11)
+        kafka.value(2, TestKafkaLogs.oid3, "ok passed?")
+        kafka.close()
 
-        self.assert_kafka('expected_cpu_proc.kafka')
+        self.assert_kafka('expected_string.kafka')
 
-    def test_mem_sys_kafka(self):
+    def test_mixed_oid_kafka(self):
         kafka = KafkaLogger()
-        kafka.mem_sys(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-        kafka.mem_sys(10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
-        kafka.mem_sys(12, 34, 654, 24, 33, 23, 442, 1, 13, 21, 44)
-        kafka.mem_sys(15, 3445, 345, 345, 44, 745, 367, 32, 1111, 33, 55)
-        kafka.mem_sys(33, 33, 453, 998, 347, 976, 8544, 45, 5555, 66, 33)
+        kafka.start(0)
+        kafka.value(0, TestKafkaLogs.oid3, "omg its bob\n\ron the line")
+        kafka.value(1, TestKafkaLogs.oid4, "now for bunnies..")
+        kafka.value(0, TestKafkaLogs.oid1, 1)
+        kafka.value(7, TestKafkaLogs.oid1, 5)
+        kafka.value(8, TestKafkaLogs.oid2, 7)
+        kafka.value(33, TestKafkaLogs.oid3, "this is a test\nwith linefeed")
+        kafka.value(555, TestKafkaLogs.oid4, "once upon a time")
+        kafka.value(333, TestKafkaLogs.oid3, "hello")
+        kafka.value(8888, TestKafkaLogs.oid1, "bomb on this")
+        kafka.value(11111, TestKafkaLogs.oid1, 12)
+        kafka.value(42322, TestKafkaLogs.oid3, 11)
+        kafka.value(111111, TestKafkaLogs.oid3, "ok passed?")
+        kafka.value(11222, TestKafkaLogs.oid2, 9)
+        kafka.value(2, TestKafkaLogs.oid1, 11)
+        kafka.close()
 
-        self.assert_kafka('expected_mem_sys.kafka')
+        self.assert_kafka('expected_mixed.kafka')
 
-    def test_mem_proc_kafka(self):
+    def test_error_kafka(self):
         kafka = KafkaLogger()
-        kafka.mem_proc(0, 1, 11, 15, 5, "p1")
-        kafka.mem_proc(0, 2, 1, 3, 2, "p2")
-        kafka.mem_proc(0, 5432, 21, 33, 9, "p3")
-        kafka.mem_proc(5, 1, 22, 11, 3, "p1")
-        kafka.mem_proc(5, 5432, 7, 55, 7, "p3")
-        kafka.mem_proc(66, 1, 11, 15, 5, "p1")
-        kafka.mem_proc(66, 2, 11, 0, 22, "p2")
-        kafka.mem_proc(66, 5432, 212, 334, 44, "p3")
 
-        self.assert_kafka('expected_mem_proc.kafka')
+        kafka.error(11111, "epic fail")
+        kafka.error(11111, "fail")
+        kafka.error(11112, "little fail")
 
-    def test_io_sys_kafka(self):
-        kafka = KafkaLogger()
-        kafka.io_sys(11111, 22, 22, 34, 43, 11, 11, 5, 3)
-        kafka.io_sys(22222, 55, 23, 44, 34, 23, 17, 15, 4)
-        kafka.io_sys(22233, 65, 23, 777, 44, 28, 18, 35, 5)
-        kafka.io_sys(25555, 78, 44, 1911, 53, 99434, 43, 43, 21)
-
-        self.assert_kafka('expected_io_sys.kafka')
-
-    def test_proc_error_kafka(self):
-        kafka = KafkaLogger()
-        kafka.proc_error(11111, 22, "epic fail")
-        kafka.proc_error(11111, 9758, "fail")
-        kafka.proc_error(11112, 7364, "little fail")
-
-        self.assert_kafka('expected_events.kafka')
-
-    def test_proc_info_kafka(self):
-        kafka = KafkaLogger()
-        kafka.proc_info(11111, 22, "proc1")
-        kafka.proc_info(11111, 9758, "proc2")
-        kafka.proc_info(11111, 7364, "proc4")
-        kafka.proc_info(11111, 3332, "proc3")
-
-        self.assert_kafka('expected_proc_info.kafka')
+        self.assert_kafka('expected_errors.kafka')
 
     def assert_kafka(self, expected_file_name):
         #print("reading server "+config.KAFKA_SERVER+" on topic:"+config.KAFKA_TOPIC)
