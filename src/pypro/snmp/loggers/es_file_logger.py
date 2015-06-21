@@ -21,7 +21,7 @@ class ESFileLogger:
         for oid in oids:
             file_name = utils.log_dir + "/" + oid._name() + "_log.es"
             log = open(file_name, "w", encoding="utf-8")
-            self.files[oid.oid] = log
+            self.files[oid.oid_id] = log
             self.indices[oid._name()] = 0
 
     def close(self):
@@ -64,10 +64,10 @@ class ESFileLogger:
 #                return
         head = '{"index" : ' + self.head.create(name, name + '_' + str(index)) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
-               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid) + '", ' + \
+               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
                '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
         line = head + body
-        log = self.files[oid.oid]
+        log = self.files[oid.oid_id]
         log.write(line + "\n")
         log.flush()
         if config.PRINT_CONSOLE: print(line)

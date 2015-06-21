@@ -21,7 +21,7 @@ class CSVFileLogger:
             header = "time;target;target_name;oid;oid_name;value"
             log.write(header + "\n")
             log.flush()
-            self.files[oid.oid] = log
+            self.files[oid.oid_id] = log
 
     def close(self):
         for file in self.files:
@@ -42,8 +42,8 @@ class CSVFileLogger:
         self.close()
 
     def value(self, epoch, oid, value):
-        line = str(epoch) + ";" + oid.target() + ";" + oid.target_name + ";" + str(oid.oid) + ";" + str(oid.oid_name) + ";" + str(value)
-        log = self.files[oid.oid]
+        line = str(epoch) + ";" + oid.target() + ";" + oid.target_name + ";" + str(oid.oid_id) + ";" + str(oid.oid_name) + ";" + str(value)
+        log = self.files[oid.oid_id]
         log.write(line + "\n")
         log.flush()
         if config.PRINT_CONSOLE: print(line)
