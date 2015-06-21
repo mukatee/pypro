@@ -1,6 +1,7 @@
 __author__ = 'teemu kanstren'
 
 from elasticsearch import Elasticsearch
+import json
 
 import pypro.snmp.config as config
 from pypro import utils
@@ -12,7 +13,7 @@ class ESNetLogger:
         self.event_id = 1
 
         self.es = Elasticsearch([config.ES_HOST+':'+str(config.ES_PORT)],
-                                sniff_on_start=True, sniff_on_connection_fail=True, sniffer_timeout=60)
+                                sniff_on_start=False, sniff_on_connection_fail=False, sniffer_timeout=60)
         for oid in config.SNMP_OIDS:
             self.indices[oid._name()] = 0
 
@@ -24,12 +25,14 @@ class ESNetLogger:
         epoch *= 1000
         body = '{"time" : ' + str(epoch) + ', "session_info" : "start"}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="event", id='event_' + str(self.event_id), body=body)
+        self.event_id += 1
         if config.PRINT_CONSOLE: print(reply)
 
     def stop(self, epoch):
         epoch *= 1000
         body = '{"time" : ' + str(epoch) + ', "session_info" : "stop"}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="event", id='event_' + str(self.event_id), body=body)
+        self.event_id += 1
         if config.PRINT_CONSOLE: print(reply)
 
     def value(self, epoch, oid, value):
@@ -40,7 +43,7 @@ class ESNetLogger:
         self.indices[name] = index
         str_value = str(value)
         if not oid.numeric or not utils.is_number(str_value):
-            str_value = '"'+str_value+'"'
+            str_value = json.dumps(str_value)
 #        else:
 #            if not utils.is_number(str_value):
 #                self.error(epoch, "Numeric OID "+oid.oid+" produced non-numeric value:"+str_value)
@@ -48,10 +51,12 @@ class ESNetLogger:
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
                '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid) + '", ' + \
                '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
+        print(body)
         reply = self.es.index(index=config.ES_INDEX, doc_type=name, id=name + '_' + str(index), body=body)
         if config.PRINT_CONSOLE: print(reply)
 
     def error(self, epoch, description):
         body = '{"time" : ' + str(epoch) + ', "error" : "' + description + '"}'
         reply = self.es.index(index=config.ES_INDEX, doc_type="event", id='event_' + str(self.event_id), body=body)
+        self.event_id += 1
         if config.PRINT_CONSOLE: print(reply)

@@ -1,0 +1,8 @@
+[('session_info', 'start'), ('time', 0)]
+[('oid', '1.1.1.2.1'), ('oid_name', 'test_oid3'), ('target', '127.0.0.1:155'), ('target_name', 'test target 3'), ('time', 1000), ('value', 'omg its bob\n\ron the line')]
+[('oid', '1.1.1.2.1.0'), ('oid_name', 'test_oid4'), ('target', '127.0.0.1:233'), ('target_name', 'test target 4'), ('time', 2000), ('value', 'now for bunnies..')]
+[('oid', '1.1.1.2.1'), ('oid_name', 'test_oid3'), ('target', '127.0.0.1:155'), ('target_name', 'test target 3'), ('time', 3000), ('value', 'this is a test\nwith linefeed')]
+[('oid', '1.1.1.2.1.0'), ('oid_name', 'test_oid4'), ('target', '127.0.0.1:233'), ('target_name', 'test target 4'), ('time', 4000), ('value', 'once upon a time')]
+[('oid', '1.1.1.2.1'), ('oid_name', 'test_oid3'), ('target', '127.0.0.1:155'), ('target_name', 'test target 3'), ('time', 5000), ('value', 'hello')]
+[('oid', '1.1.1.2.1'), ('oid_name', 'test_oid3'), ('target', '127.0.0.1:155'), ('target_name', 'test target 3'), ('time', 6000), ('value', '11')]
+[('oid', '1.1.1.2.1'), ('oid_name', 'test_oid3'), ('target', '127.0.0.1:155'), ('target_name', 'test target 3'), ('time', 7000), ('value', 'ok passed?')]
