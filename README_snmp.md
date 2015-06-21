@@ -62,6 +62,7 @@ Example use:
 ```python
 import pypro.snmp.config as config
 from pypro.snmp.oid import OID
+from pypro.snmp.oids import *
 import pypro.snmp.main as main
 
 config.ES_FILE_ENABLED = True

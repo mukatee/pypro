@@ -44,14 +44,9 @@ class ESNetLogger:
         str_value = str(value)
         if not oid.numeric or not utils.is_number(str_value):
             str_value = json.dumps(str_value)
-#        else:
-#            if not utils.is_number(str_value):
-#                self.error(epoch, "Numeric OID "+oid.oid+" produced non-numeric value:"+str_value)
-#                return
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
-               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid) + '", ' + \
+               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
                '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
-        print(body)
         reply = self.es.index(index=config.ES_INDEX, doc_type=name, id=name + '_' + str(index), body=body)
         if config.PRINT_CONSOLE: print(reply)
 

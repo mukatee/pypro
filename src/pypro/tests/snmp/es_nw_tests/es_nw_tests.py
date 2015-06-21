@@ -39,7 +39,7 @@ class TestESNetLogs(unittest.TestCase):
         config.SNMP_OIDS.append(TestESNetLogs.oid3)
         config.SNMP_OIDS.append(TestESNetLogs.oid4)
         config.ES_INDEX = "pypro_tests"
-        config.PRINT_CONSOLE = True
+        config.PRINT_CONSOLE = False
 
     def setUp(self):
         if os.path.exists(utils.log_dir):
@@ -116,7 +116,7 @@ class TestESNetLogs(unittest.TestCase):
             data = self.es.scroll(scroll_id=scroll_id, scroll= "10m")
             items = data["hits"]["hits"]
             actual = self.read_es(data, actual)
-        print(actual)
+#        print(actual)
         expected = pkg_resources.resource_string(__name__, expected_file_name).decode('utf8')
         t_assert.equal(actual, expected)
 

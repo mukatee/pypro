@@ -59,7 +59,7 @@ class KafkaLogger:
 #        head = self.head.create(name, name+'_' + str(index))
         head = self.head.create("measurement", name+'_' + str(index))
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
-               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid) + '", ' + \
+               '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
                '"oid_name" : "' + str(oid.oid_name)
         if is_str:
             body += '", "str_value" : "' + str_value + '"}'
