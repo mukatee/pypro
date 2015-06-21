@@ -70,7 +70,17 @@ class BytesOut(OID):
     def __init__(self, community, ip, port, target_name, n):
         OID.__init__(self, '.1.3.6.1.2.1.2.2.1.16.1.' + str(n), 'nw bytes out if ' + str(n), community, ip, port, target_name, True)
 
+# discarded incoming packets for a network interface. parameter "n" defines interface number
+class DiscardedIn(OID):
+    def __init__(self, community, ip, port, target_name, n):
+        OID.__init__(self, '1.3.6.1.2.1.2.2.1.13.' + str(n), 'discarded packets in if ' + str(n), community, ip, port, target_name, True)
 
+# discarded outgoing packets for a network interface. parameter "n" defines interface number
+class DiscardedOut(OID):
+    def __init__(self, community, ip, port, target_name, n):
+        OID.__init__(self, '1.3.6.1.2.1.2.2.1.19.' + str(n), 'discarded packets out if ' + str(n), community, ip, port, target_name, True)
+
+#ram used. a measure derived from reading two oid values, total ram in system and free ram in system.
 class RamUsed:
     def __init__(self, community, ip, port, target_name):
         # sometimes the OID number sequence starts with "." which works to read it
@@ -91,22 +101,24 @@ class RamUsed:
     def _name(self):
         return self.oid_name.replace(' ', '_')
 
+    #for authenticated measurement polls
     def measure_auth(self, snmp, user, password, privacy_key, auth_proto, priv_proto):
         errorIndication, errorStatus, errorIndex, var_binds = snmp.getCmd(
             cmdgen.UsmUserData(user, authKey=password, privKey=privacy_key,
                                authProtocol=auth_proto, privProtocol=priv_proto),
             cmdgen.UdpTransportTarget((self.ip, self.port)),
-            self.oid_total_id,
+            self.oid_total_id, #list of OID's to poll is here
             self.oid_free_id,
             lookupNames=True, lookupValues=True
         )
         return self.calc_used(errorIndication, errorStatus, errorIndex, var_binds)
 
+    #for basic measurements with not authentication
     def measure_base(self, snmp):
         errorIndication, errorStatus, errorIndex, var_binds = snmp.getCmd(
             cmdgen.CommunityData(self.community),
             cmdgen.UdpTransportTarget((self.ip, self.port)),
-            self.oid_total_id,
+            self.oid_total_id, #list of OID's to poll is here
             self.oid_free_id)
         return self.calc_used(errorIndication, errorStatus, errorIndex, var_binds)
 
@@ -117,8 +129,8 @@ class RamUsed:
             #print('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
             pretty = str(name)
             if pretty == self.oid_total_id:
-                total = val.prettyPrint()
+                total = val.prettyPrint() #here we pick up the total ram count in the system (oid 1)
             if pretty == self.oid_free_id:
-                used = val.prettyPrint()
-        value = int(total) - int(used)
-        return (errorIndication, errorStatus, errorIndex, [(self.oid_id, value)])
+                free = val.prettyPrint() #and here we pick up the free ram count in the system (oid 2)
+        value = int(total) - int(free) #and calculate the derived measure (free ram count)
+        return (errorIndication, errorStatus, errorIndex, [(self.oid_id, value)]) #finally return it in similar for to pysnmp
