@@ -43,10 +43,10 @@ class SNMPPoller:
         # Check for errors and print out results
         if error_indication:
             for logger in self.loggers:
-                logger.error(epoch, "failed to poll oid "+oid.oid+" from "+oid.target()+" : "+str(error_indication))
+                logger.error(epoch, "failed to poll oid "+oid.oid_id+" from "+oid.target()+" : "+str(error_indication))
         elif error_status:
             for logger in self.loggers:
-                logger.error(epoch, "failed to poll oid "+oid.oid+" from "+oid.target()+" : "+str(error_status))
+                logger.error(epoch, "failed to poll oid "+oid.oid_id+" from "+oid.target()+" : "+str(error_status))
         else:
             for name, val in var_binds:
                 for logger in self.loggers:

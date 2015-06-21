@@ -111,11 +111,14 @@ class RamUsed:
         return self.calc_used(errorIndication, errorStatus, errorIndex, var_binds)
 
     def calc_used(self, errorIndication, errorStatus, errorIndex, var_binds):
+        if errorIndication or errorStatus:
+            return (errorIndication, errorStatus, errorIndex, [])
         for name, val in var_binds:
-#            print('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
-            if (name.prettyPrint() == self.oid_total_id):
+            #print('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
+            pretty = str(name)
+            if pretty == self.oid_total_id:
                 total = val.prettyPrint()
-            if (name.prettyPrint() == self.oid_free_id):
+            if pretty == self.oid_free_id:
                 used = val.prettyPrint()
         value = int(total) - int(used)
         return (errorIndication, errorStatus, errorIndex, [(self.oid_id, value)])

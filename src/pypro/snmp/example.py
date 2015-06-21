@@ -16,6 +16,7 @@ config.KAFKA_ENABLED = False
 config.KAFKA_TOPIC = "session2"
 config.KAFKA_SERVER = "192.168.2.153"
 config.PRINT_CONSOLE = True
+config.SNMP_AUTH = True
 #raw user space cpu time
 config.SNMP_OIDS.append(UserCPUTimeRaw('public', '192.168.2.1', 161, 'router'))
 #config.SNMP_OIDS.append(OID('1.3.6.1.4.1.2021.11.50.0', 'user cpu time', 'public', '192.168.2.1', 161, 'router', True))
