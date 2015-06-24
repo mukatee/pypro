@@ -38,10 +38,10 @@ class CPUPoller:
 
     def poll(self):
         #int() converts argument to integer (string or float), in this case the float time
-        epoch = int(time.time())
+        epoch = int(time.time()*1000)
         self.poll_system(epoch)
 
-        before = int(time.time()*1000)
+        #before = int(time.time()*1000)
         self.proc_poller.check_processes(epoch)
         for pid in config.PROCESS_LIST:
             if pid == "-": return
@@ -54,8 +54,8 @@ class CPUPoller:
 #            print("got "+str(processes)+" for "+str(pid))
             for proc in processes:
                 self.poll_process(epoch, proc)
-        after = int(time.time()*1000)
-        diff = after-before
+        #after = int(time.time()*1000)
+        #diff = after-before
         #print("cpu_p:"+str(diff))
 
     def poll_process(self, epoch, proc):

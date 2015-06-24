@@ -39,7 +39,7 @@ class SNMPPoller:
 #                lookupNames=True, lookupValues=True
 #            )
 
-        epoch = int(time.time())
+        epoch = int(time.time()*1000)
         # Check for errors and print out results
         if error_indication:
             for logger in self.loggers:

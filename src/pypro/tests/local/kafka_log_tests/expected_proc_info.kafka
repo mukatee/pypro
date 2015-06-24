@@ -1,4 +1,4 @@
-{"header": {"index" : "session1", "doc_type" : "process_info", "id" : "proc_info_1"}, "body":{"time" : 11111000, "pid" : 22, "name" : "proc1"}}
-{"header": {"index" : "session1", "doc_type" : "process_info", "id" : "proc_info_2"}, "body":{"time" : 11111000, "pid" : 9758, "name" : "proc2"}}
-{"header": {"index" : "session1", "doc_type" : "process_info", "id" : "proc_info_3"}, "body":{"time" : 11111000, "pid" : 7364, "name" : "proc4"}}
-{"header": {"index" : "session1", "doc_type" : "process_info", "id" : "proc_info_4"}, "body":{"time" : 11111000, "pid" : 3332, "name" : "proc3"}}
+{"header": {"db" : "session1", "type" : "process_info", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 22, "name" : "proc1"}}
+{"header": {"db" : "session1", "type" : "process_info", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 9758, "name" : "proc2"}}
+{"header": {"db" : "session1", "type" : "process_info", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 7364, "name" : "proc4"}}
+{"header": {"db" : "session1", "type" : "process_info", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 3332, "name" : "proc3"}}

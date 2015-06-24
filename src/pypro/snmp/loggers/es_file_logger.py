@@ -31,7 +31,7 @@ class ESFileLogger:
 
     def start(self, epoch):
         epoch *= 1000 #this converts it into milliseconds
-        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
+        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id), epoch) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "session_info" : "start"}'
         line = head + body
         self.event_log.write(line + "\n")
@@ -41,7 +41,7 @@ class ESFileLogger:
 
     def stop(self, epoch):
         epoch *= 1000
-        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
+        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id), epoch) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "session_info" : "stop"}'
         line = head + body
         self.event_log.write(line + "\n")
@@ -62,7 +62,7 @@ class ESFileLogger:
 #            if not utils.is_number(str_value):
 #                self.error(epoch, "Numeric OID "+oid.oid+" produced non-numeric value:"+str_value)
 #                return
-        head = '{"index" : ' + self.head.create(name, name + '_' + str(index)) + '}\n'
+        head = '{"index" : ' + self.head.create(name, name + '_' + str(index), epoch) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
                '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
                '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
@@ -74,7 +74,7 @@ class ESFileLogger:
 
     def error(self, epoch, description):
         epoch *= 1000
-        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id)) + '}\n'
+        head = '{"index" : ' + self.head.create('event', 'event_' + str(self.event_id), epoch) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "error" : "' + description + '"}'
         line = head + body
         self.event_log.write(line + "\n")

@@ -1,3 +1,3 @@
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_1"}, "body":{"time" : 11111, "error" : "epic fail"}}
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_2"}, "body":{"time" : 11111, "error" : "fail"}}
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_3"}, "body":{"time" : 11112, "error" : "little fail"}}
+{"header": {"db" : "session1", "type" : "info", "tom" : "host1", "time" : 11111}, "body":{"error" : "epic fail"}}
+{"header": {"db" : "session1", "type" : "info", "tom" : "host1", "time" : 11111}, "body":{"error" : "fail"}}
+{"header": {"db" : "session1", "type" : "info", "tom" : "host1", "time" : 11112}, "body":{"error" : "little fail"}}

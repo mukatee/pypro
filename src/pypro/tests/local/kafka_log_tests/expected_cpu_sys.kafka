@@ -1,4 +1,4 @@
-{"header": {"index" : "session1", "doc_type" : "system_cpu", "id" : "cpu_sys_1"}, "body":{"time" : 0, "user_count" : 1, "system_count" : 1, "idle_count" : 1, "percent" : 1}}
-{"header": {"index" : "session1", "doc_type" : "system_cpu", "id" : "cpu_sys_2"}, "body":{"time" : 1000, "user_count" : 3, "system_count" : 2, "idle_count" : 5, "percent" : 6}}
-{"header": {"index" : "session1", "doc_type" : "system_cpu", "id" : "cpu_sys_3"}, "body":{"time" : 3000, "user_count" : 22, "system_count" : 99, "idle_count" : 11, "percent" : 4}}
-{"header": {"index" : "session1", "doc_type" : "system_cpu", "id" : "cpu_sys_4"}, "body":{"time" : 5000, "user_count" : 155, "system_count" : 122, "idle_count" : 12, "percent" : 22}}
+{"header": {"db" : "session1", "type" : "system_cpu", "tom" : "host1", "time" : 0}, "body":{"user_count" : 1, "system_count" : 1, "idle_count" : 1, "percent" : 1}}
+{"header": {"db" : "session1", "type" : "system_cpu", "tom" : "host1", "time" : 1}, "body":{"user_count" : 3, "system_count" : 2, "idle_count" : 5, "percent" : 6}}
+{"header": {"db" : "session1", "type" : "system_cpu", "tom" : "host1", "time" : 3}, "body":{"user_count" : 22, "system_count" : 99, "idle_count" : 11, "percent" : 4}}
+{"header": {"db" : "session1", "type" : "system_cpu", "tom" : "host1", "time" : 5}, "body":{"user_count" : 155, "system_count" : 122, "idle_count" : 12, "percent" : 22}}

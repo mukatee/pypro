@@ -1,8 +1,8 @@
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_1"}, "body":{"time" : 0, "pid" : 1, "rss" : 11, "vms" : 15, "percent" : 5, "pname" : "p1"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_2"}, "body":{"time" : 0, "pid" : 2, "rss" : 1, "vms" : 3, "percent" : 2, "pname" : "p2"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_3"}, "body":{"time" : 0, "pid" : 5432, "rss" : 21, "vms" : 33, "percent" : 9, "pname" : "p3"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_4"}, "body":{"time" : 5000, "pid" : 1, "rss" : 22, "vms" : 11, "percent" : 3, "pname" : "p1"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_5"}, "body":{"time" : 5000, "pid" : 5432, "rss" : 7, "vms" : 55, "percent" : 7, "pname" : "p3"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_6"}, "body":{"time" : 66000, "pid" : 1, "rss" : 11, "vms" : 15, "percent" : 5, "pname" : "p1"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_7"}, "body":{"time" : 66000, "pid" : 2, "rss" : 11, "vms" : 0, "percent" : 22, "pname" : "p2"}}
-{"header": {"index" : "session1", "doc_type" : "process_memory", "id" : "mem_proc_8"}, "body":{"time" : 66000, "pid" : 5432, "rss" : 212, "vms" : 334, "percent" : 44, "pname" : "p3"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 0}, "body":{"pid" : 1, "rss" : 11, "vms" : 15, "percent" : 5, "pname" : "p1"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 0}, "body":{"pid" : 2, "rss" : 1, "vms" : 3, "percent" : 2, "pname" : "p2"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 0}, "body":{"pid" : 5432, "rss" : 21, "vms" : 33, "percent" : 9, "pname" : "p3"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 5000}, "body":{"pid" : 1, "rss" : 22, "vms" : 11, "percent" : 3, "pname" : "p1"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 5000}, "body":{"pid" : 5432, "rss" : 7, "vms" : 55, "percent" : 7, "pname" : "p3"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 66000}, "body":{"pid" : 1, "rss" : 11, "vms" : 15, "percent" : 5, "pname" : "p1"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 66000}, "body":{"pid" : 2, "rss" : 11, "vms" : 0, "percent" : 22, "pname" : "p2"}}
+{"header": {"db" : "session1", "type" : "process_memory", "tom" : "host1", "time" : 66000}, "body":{"pid" : 5432, "rss" : 212, "vms" : 334, "percent" : 44, "pname" : "p3"}}

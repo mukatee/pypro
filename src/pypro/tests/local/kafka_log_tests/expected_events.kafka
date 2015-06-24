@@ -1,3 +1,3 @@
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "proc_error_1"}, "body":{"time" : 11111000, "pid" : 22, "name" : "epic fail"}}
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "proc_error_2"}, "body":{"time" : 11111000, "pid" : 9758, "name" : "fail"}}
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "proc_error_3"}, "body":{"time" : 11112000, "pid" : 7364, "name" : "little fail"}}
+{"header": {"db" : "session1", "type" : "event", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 22, "name" : "epic fail"}}
+{"header": {"db" : "session1", "type" : "event", "tom" : "host1", "time" : 11111000}, "body":{"pid" : 9758, "name" : "fail"}}
+{"header": {"db" : "session1", "type" : "event", "tom" : "host1", "time" : 11112000}, "body":{"pid" : 7364, "name" : "little fail"}}

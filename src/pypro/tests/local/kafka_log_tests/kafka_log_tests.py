@@ -17,6 +17,7 @@ class TestKafkaLogs(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        config.DB_NAME = "session1"
         config.KAFKA_SERVER = os.environ["PYPRO_KAFKA_SERVER"]
 
     def setUp(self):

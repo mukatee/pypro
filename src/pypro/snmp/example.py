@@ -12,9 +12,9 @@ config.ES_INDEX = "pypro-snmp"
 config.ES_NW_ENABLED = False
 config.ES_FILE_ENABLED = True
 config.CSV_ENABLED = True
-config.KAFKA_ENABLED = False
-config.KAFKA_TOPIC = "session2"
-config.KAFKA_SERVER = "192.168.2.153"
+config.KAFKA_ENABLED = True
+config.KAFKA_TOPIC = "pypro"
+config.KAFKA_SERVER = "192.168.2.79"
 config.PRINT_CONSOLE = True
 config.SNMP_AUTH = False
 

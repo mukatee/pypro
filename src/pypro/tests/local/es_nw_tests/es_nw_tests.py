@@ -26,14 +26,14 @@ import pypro.local.config as config
 class TestESLogs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        config.ES_INDEX = "pypro_tests"
+        config.DB_NAME = "pypro_tests"
         config.PRINT_CONSOLE = False
 
     def setUp(self):
         if os.path.exists(utils.log_dir):
             shutil.rmtree(utils.log_dir, ignore_errors=True)
         self.es = Elasticsearch()
-        self.es.delete_by_query(config.ES_INDEX, body='{"query":{"match_all":{}}}', ignore=[404])
+        self.es.delete_by_query(config.DB_NAME, body='{"query":{"match_all":{}}}', ignore=[404])
 
     def test_cpu_sys_es(self):
         log = ESNetLogger()
@@ -43,7 +43,7 @@ class TestESLogs(unittest.TestCase):
         log.cpu_sys(5, 155, 122, 12, 22)
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(4, len(items), "number of cpu sys items logged")
         self.assert_cpu_sys(items[0]["_source"], 0, 1, 1, 1, 1)
@@ -53,7 +53,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_cpu_sys(self, item, time, user_count, system_count, idle_count, percent):
         self.assertEqual(5, len(item), "number of properties for a cpu sys item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['percent'], percent)
         self.assertEqual(item['idle_count'], idle_count)
         self.assertEqual(item['system_count'], system_count)
@@ -71,7 +71,7 @@ class TestESLogs(unittest.TestCase):
         log.cpu_proc(21, 3, 2, 555, 7, 11, 55, 32, "p3")
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(8, len(items), "number of cpu proc items logged")
 #        print(str(items[0]["_source"]))
@@ -86,7 +86,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_cpu_proc(self, item, time, pid, priority, ctx_count, n_threads, cpu_user, cpu_system, percent, pname):
         self.assertEqual(9, len(item), "number of properties for a cpu sys item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['pid'], pid)
         self.assertEqual(item['priority'], priority)
         self.assertEqual(item['context_switches'], ctx_count)
@@ -116,7 +116,7 @@ class TestESLogs(unittest.TestCase):
         log.mem_sys(33, 33, 453, 998, 347, 976, 8544, 45, 5555, 66, 33)
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(5, len(items), "number of mem sys items logged")
         self.assert_mem_sys(items[0]["_source"], 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
@@ -128,7 +128,7 @@ class TestESLogs(unittest.TestCase):
     def assert_mem_sys(self, item, time, available, percent, used, free,
                 swap_total, swap_used, swap_free, swap_in, swap_out, swap_percent):
         self.assertEqual(11, len(item), "number of properties for a mem sys item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['available'], available)
         self.assertEqual(item['percent'], percent)
         self.assertEqual(item['used'], used)
@@ -152,7 +152,7 @@ class TestESLogs(unittest.TestCase):
         log.mem_proc(68, 5432, 212, 334, 44, "p3")
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(8, len(items), "number of mem proc items logged")
 #        print(str(items[0]["_source"]))
@@ -167,7 +167,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_mem_proc(self, item, time, pid, rss, vms, percent, pname):
         self.assertEqual(6, len(item), "number of properties for a mem proc item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['pid'], pid)
         self.assertEqual(item['rss'], rss)
         self.assertEqual(item['vms'], vms)
@@ -182,7 +182,7 @@ class TestESLogs(unittest.TestCase):
         log.io_sys(25555, 78, 44, 1911, 53, 99434, 43, 43, 21)
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(4, len(items), "number of mem sys items logged")
 #        print(str(items[0]["_source"]))
@@ -193,7 +193,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_io_sys(self, item, time, bytes_sent, bytes_recv, packets_sent, packets_recv, errin, errout, dropin, dropout):
         self.assertEqual(9, len(item), "number of properties for a mem proc item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['bytes_sent'], bytes_sent)
         self.assertEqual(item['bytes_recv'], bytes_recv)
         self.assertEqual(item['packets_sent'], packets_sent)
@@ -210,7 +210,7 @@ class TestESLogs(unittest.TestCase):
         log.proc_error(11113, 7364, "little fail")
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "time": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(3, len(items), "number of mem sys items logged")
 #        print(str(items[0]["_source"]))
@@ -220,7 +220,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_proc_error(self, item, time, pid, name):
         self.assertEqual(3, len(item), "number of properties for a proc error item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['pid'], pid)
         self.assertEqual(item['name'], name)
 
@@ -232,7 +232,7 @@ class TestESLogs(unittest.TestCase):
         log.proc_info(11111, 3332, "proc3")
         log.close()
         time.sleep(1)
-        data = self.es.search(index=config.ES_INDEX, body='{"query":{"match_all":{}}, "sort": { "pid": { "order": "asc" }}}')
+        data = self.es.search(index=config.DB_NAME, body='{"query":{"match_all":{}}, "sort": { "pid": { "order": "asc" }}}')
         items = data["hits"]["hits"]
         self.assertEqual(4, len(items), "number of mem sys items logged")
 #        print(str(items[0]["_source"]))
@@ -243,7 +243,7 @@ class TestESLogs(unittest.TestCase):
 
     def assert_proc_info(self, item, time, pid, name):
         self.assertEqual(3, len(item), "number of properties for a proc info item")
-        self.assertEqual(item['time'], time*1000)
+        self.assertEqual(item['time'], time)
         self.assertEqual(item['pid'], pid)
         self.assertEqual(item['name'], name)
 

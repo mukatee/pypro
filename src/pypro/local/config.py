@@ -29,10 +29,12 @@ ES_PORT = 9200
 #name of the data collection session
 SESSION_NAME = "session1"
 #name of the elasticsearch index to write logs into
-ES_INDEX = SESSION_NAME
+DB_NAME = "tbd"
 
 KAFKA_SERVER = "localhost:9092"
 KAFKA_TOPIC = "pypro"
+#target of measurement identifier
+TOM = "host1"
 
 #polling interval. this is the time the poller sleeps between reading and writing values.
 INTERVAL = 1

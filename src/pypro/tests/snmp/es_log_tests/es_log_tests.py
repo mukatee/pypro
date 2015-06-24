@@ -9,11 +9,13 @@ import pkg_resources
 from pypro.local.loggers.es_file_logger import ESFileLogger
 from pypro import utils
 import pypro.tests.t_assert as t_assert
+import pypro.local.config as config
 
 #weird regex syntax, pattern required, weird errors...
 
 class TestESLogs(unittest.TestCase):
     def setUp(self):
+        config.DB_NAME = "session1"
         if os.path.exists(utils.log_dir):
             shutil.rmtree(utils.log_dir, ignore_errors=True)
 

@@ -32,7 +32,7 @@ def init():
     pollers = []
     for oid in config.SNMP_OIDS:
         pollers.append(SNMPPoller(oid, snmp, loggers))
-    epoch = int(time.time())
+    epoch = int(time.time()*1000)
     for logger in loggers:
         logger.start(epoch)
 

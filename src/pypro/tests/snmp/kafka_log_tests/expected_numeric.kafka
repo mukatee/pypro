@@ -1,8 +1,8 @@
-{"header": {"index" : "session1", "doc_type" : "event", "id" : "event_1"}, "body":{"start_time" : 0, "session_info" : "start"}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid1_1"}, "body":{"time" : 0, "target" : "127.0.0.1:55", "target_name" : "test target 1", "oid" : "1.1.1.1.1", "oid_name" : "test_oid1", "value" : 1}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid1_2"}, "body":{"time" : 1, "target" : "127.0.0.1:55", "target_name" : "test target 1", "oid" : "1.1.1.1.1", "oid_name" : "test_oid1", "value" : 5}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid2_1"}, "body":{"time" : 1, "target" : "127.0.0.1:255", "target_name" : "test target 2", "oid" : "1.1.1.1.1.0", "oid_name" : "test_oid2", "value" : 7}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid2_2"}, "body":{"time" : 2, "target" : "127.0.0.1:255", "target_name" : "test target 2", "oid" : "1.1.1.1.1.0", "oid_name" : "test_oid2", "value" : 9}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid1_3"}, "body":{"time" : 2, "target" : "127.0.0.1:55", "target_name" : "test target 1", "oid" : "1.1.1.1.1", "oid_name" : "test_oid1", "value" : 11}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid1_4"}, "body":{"time" : 2, "target" : "127.0.0.1:55", "target_name" : "test target 1", "oid" : "1.1.1.1.1", "oid_name" : "test_oid1", "str_value" : "bomb on this"}}
-{"header": {"index" : "session1", "doc_type" : "measurement", "id" : "test_oid1_5"}, "body":{"time" : 2, "target" : "127.0.0.1:55", "target_name" : "test target 1", "oid" : "1.1.1.1.1", "oid_name" : "test_oid1", "value" : 12}}
+{"header": {"db" : "session1", "type" : "info", "tom" : "host1", "time" : 0}, "body":{"description" : "started (session)", "value" : 1}}
+{"header": {"db" : "session1", "type" : "test_oid1", "tom" : "test target 1", "time" : 0}, "body":{"target" : "127.0.0.1:55", "oid" : "1.1.1.1.1", "value" : 1}}
+{"header": {"db" : "session1", "type" : "test_oid1", "tom" : "test target 1", "time" : 1}, "body":{"target" : "127.0.0.1:55", "oid" : "1.1.1.1.1", "value" : 5}}
+{"header": {"db" : "session1", "type" : "test_oid2", "tom" : "test target 2", "time" : 1}, "body":{"target" : "127.0.0.1:255", "oid" : "1.1.1.1.1.0", "value" : 7}}
+{"header": {"db" : "session1", "type" : "test_oid2", "tom" : "test target 2", "time" : 2}, "body":{"target" : "127.0.0.1:255", "oid" : "1.1.1.1.1.0", "value" : 9}}
+{"header": {"db" : "session1", "type" : "test_oid1", "tom" : "test target 1", "time" : 2}, "body":{"target" : "127.0.0.1:55", "oid" : "1.1.1.1.1", "value" : 11}}
+{"header": {"db" : "session1", "type" : "test_oid1", "tom" : "test target 1", "time" : 2}, "body":{"target" : "127.0.0.1:55", "oid" : "1.1.1.1.1", "str_value" : "bomb on this"}}
+{"header": {"db" : "session1", "type" : "test_oid1", "tom" : "test target 1", "time" : 2}, "body":{"target" : "127.0.0.1:55", "oid" : "1.1.1.1.1", "value" : 12}}
