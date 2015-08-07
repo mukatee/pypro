@@ -18,7 +18,8 @@ class TestKafkaLogs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         config.DB_NAME = "session1"
-        config.KAFKA_SERVER = os.environ["PYPRO_KAFKA_SERVER"]
+#        config.KAFKA_SERVER = os.environ["PYPRO_KAFKA_SERVER"]
+        config.KAFKA_SERVER = "localhost"
         TestKafkaLogs.oid1 = OID("1.1.1.1.1", "test_oid1", "public", "127.0.0.1", 55, "test target 1", True)
         TestKafkaLogs.oid2 = OID("1.1.1.1.1.0", "test_oid2", "private", "127.0.0.1", 255, "test target 2", True)
         TestKafkaLogs.oid3 = OID("1.1.1.2.1", "test_oid3", "public", "127.0.0.1", 155, "test target 3", False)

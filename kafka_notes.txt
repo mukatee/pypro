@@ -8,3 +8,12 @@ rm /tmp/zookeeper
 to get fast emptying kafka:
 log.retention.ms=5000
 log.retention.check.interval.ms=10000
+
+to start kafka on windows
+bin\windows\zookeeper-server-start.bat config/zookeeper.properties
+bin\windows\kafka-server-start.bat config/server.properties
+
+To set topic retention time: bin/kafka-topics.sh --zookeeper zk.yoursite.com --alter --topic as-access --config retention.ms=86400000
+To check topic retention time: bin/kafka-topics.sh --describe --zookeeper zk.yoursite.com --topic as-access
+To list topics: bin/kafka-topics.sh --list --zookeeper localhost:2181
+To get messages from a topic: bin\windows\kafka-console-consumer.bat --zookeeper localhost:2181 --topic mytopic --from-beginning

@@ -47,15 +47,15 @@ class KafkaLogger:
         index = self.indices[name]
         index += 1
         self.indices[name] = index
-        is_str = False
+        is_error = False
         str_value = str(value)
-        if not oid.numeric or not utils.is_number(str_value):
-            is_str = True
+        if oid.numeric and not utils.is_number(str_value):
+            is_error = True
         head = self.head.create(oid.oid_name, oid.target_name, epoch)
         body = '{"target" : "' + str(oid.target()) + '", ' + \
                '"oid" : "' + str(oid.oid_id)
-        if is_str:
-            body += '", "str_value" : "' + str_value + '"}'
+        if is_error:
+            body += '", "error" : "' + str_value + '"}'
         else:
             body += '", "value" : ' + str_value + '}'
         msg = '{"header": '+ head + ', "body":'+ body+'}'

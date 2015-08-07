@@ -11,8 +11,7 @@ class UserCPUTimeRaw(OID):
 
 class UserCPUTimePrct(OID):
     def __init__(self, community, ip, port, target_name):
-        OID.__init__(self, '1.3.6.1.4.1.2021.11.9.0', 'percentage user cpu time', community, ip, port, target_name,
-                     True)
+        OID.__init__(self, '1.3.6.1.4.1.2021.11.9.0', 'percentage user cpu time', community, ip, port, target_name, True)
 
 
 class SystemCPUTimeRaw(OID):
@@ -22,8 +21,7 @@ class SystemCPUTimeRaw(OID):
 
 class SystemCPUTimePrct(OID):
     def __init__(self, community, ip, port, target_name):
-        OID.__init__(self, '1.3.6.1.4.1.2021.11.10.0', 'percentage system cpu time', community, ip, port, target_name,
-                     True)
+        OID.__init__(self, '1.3.6.1.4.1.2021.11.10.0', 'percentage system cpu time', community, ip, port, target_name, True)
 
 
 class IdleCPUTimeRaw(OID):
@@ -33,8 +31,7 @@ class IdleCPUTimeRaw(OID):
 
 class IdleCPUTimePrct(OID):
     def __init__(self, community, ip, port, target_name):
-        OID.__init__(self, '.1.3.6.1.4.1.2021.11.11.0', 'percentage idle cpu time', community, ip, port, target_name,
-                     True)
+        OID.__init__(self, '.1.3.6.1.4.1.2021.11.11.0', 'percentage idle cpu time', community, ip, port, target_name, True)
 
 
 class RamTotal(OID):
