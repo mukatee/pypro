@@ -1,0 +1,9 @@
+install: pip3 install avro-python3
+
+parse schema: avro.schema.Parse()
+
+my_data = pkg_resources.resource_string(__name__, "foo.dat")
+
+ValueError: Expecting value: line 1 column 1 (char 0)
+TypeError: the JSON object must be str, not 'bytes'
+.decode('utf8')

@@ -10,7 +10,9 @@ ES_FILE_ENABLED = False
 CSV_ENABLED = True
 #print log data to console (CSV/ES only)
 PRINT_CONSOLE = False
-KAFKA_ENABLED = True
+KAFKA_JSON_ENABLED = False
+KAFKA_AVRO_ENABLED = True
+AVRO_SCHEMA_ID = 1
 
 #elasticsearch server host address
 ES_HOST = "localhost"

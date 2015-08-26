@@ -4,6 +4,7 @@ __author__ = 'teemu kanstren'
 
 import pypro.snmp.config as config
 from pypro.snmp.oid import OID
+from pypro.snmp.oid import OID_Type
 import pypro.snmp.main as main
 from pypro.snmp.oids import *
 
@@ -12,14 +13,14 @@ config.ES_INDEX = "pypro-snmp"
 config.ES_NW_ENABLED = False
 config.ES_FILE_ENABLED = False
 config.CSV_ENABLED = True
-config.KAFKA_ENABLED = True
+config.KAFKA_AVRO_ENABLED = True
 config.KAFKA_TOPIC = "pypro"
-config.KAFKA_SERVER = "192.168.2.153"
+config.KAFKA_SERVER = "localhost"
 config.PRINT_CONSOLE = True
 config.SNMP_AUTH = False
 
 #example for querying whatever OID you like
-config.SNMP_OIDS.append(OID('1.3.6.1.2.1.1.3.0', 'system uptime', 'public', '192.168.2.1', 161, 'router', True))
+config.SNMP_OIDS.append(OID('1.3.6.1.2.1.1.3.0', 'system uptime', 'public', '192.168.2.1', 161, 'router', OID_Type.int))
 #following are examples of the buildin OID to query
 #raw user space cpu time
 config.SNMP_OIDS.append(UserCPUTimeRaw('public', '192.168.2.1', 161, 'router'))

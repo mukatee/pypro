@@ -8,7 +8,8 @@ import pypro.snmp.config as config
 from pypro.snmp.loggers.es_network_logger import ESNetLogger
 from pypro.snmp.loggers.es_file_logger import ESFileLogger
 from pypro.snmp.loggers.csv_logger import CSVFileLogger
-from pypro.snmp.loggers.kafka_logger import KafkaLogger
+from pypro.snmp.loggers.kafka_json_logger import KafkaJsonLogger
+from pypro.snmp.loggers.kafka_avro_logger import KafkaAvroLogger
 from pypro.snmp.snmp_poller import SNMPPoller
 
 #resource OID's on linux: http://www.debianadmin.com/linux-snmp-oids-for-cpumemory-and-disk-statistics.html
@@ -26,7 +27,8 @@ def init():
     if (config.ES_FILE_ENABLED): loggers.append(ESFileLogger())
     if (config.ES_NW_ENABLED): loggers.append(ESNetLogger())
     if (config.CSV_ENABLED): loggers.append(CSVFileLogger())
-    if (config.KAFKA_ENABLED): loggers.append(KafkaLogger())
+    if (config.KAFKA_JSON_ENABLED): loggers.append(KafkaJsonLogger())
+    if (config.KAFKA_AVRO_ENABLED): loggers.append(KafkaAvroLogger())
 
     global pollers
     pollers = []

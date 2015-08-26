@@ -6,7 +6,7 @@ from pypro.snmp import config
 from pypro.head_builder import HeadBuilder
 from pypro import utils
 
-class KafkaLogger:
+class KafkaJsonLogger:
     indices = {}
 
     def __init__(self):
