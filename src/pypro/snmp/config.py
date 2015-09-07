@@ -12,7 +12,9 @@ CSV_ENABLED = True
 PRINT_CONSOLE = False
 KAFKA_JSON_ENABLED = False
 KAFKA_AVRO_ENABLED = True
-AVRO_SCHEMA_ID = 1
+AVRO_SCHEMA_FLOAT_ID = 1
+AVRO_SCHEMA_INT_ID = 2
+AVRO_SCHEMA_STR_ID = 3
 
 #elasticsearch server host address
 ES_HOST = "localhost"
