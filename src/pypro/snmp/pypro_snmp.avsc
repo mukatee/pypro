@@ -1,0 +1,30 @@
+{
+  "namespace": "pypro.snmp",
+  "type": "record",
+  "name": "SNMPMeasure",
+  "doc": "A measurement collected using pypro-snmp (https://github.com/mukatee/pypro)",
+  "fields": [
+    {"name": "header", "type":
+      {"type": "record", "name": "SNMPHeader",
+        "doc": "Metadata for the measurement",
+        "fields": [
+          {"name": "type", "type": "string", "doc": "Measurement type, such as 'cpu load'."},
+          {"name": "tom", "type": "string", "doc": "Target of Measurement, an abstract description of a target (e.g., email server). Might include several hosts (e.g., cluster)."},
+          {"name": "address", "type": "string", "doc": "The exact address that was measured (e.g., IP of specific host)."},
+          {"name": "oid", "type": "string", "doc": "The SNMP OID for the measure (for derived measures might not be a single specific OID)."},
+          {"name": "time", "type": "long", "doc": "Time when measurement was taken, recorded at the host where pypro-snmp is running."}
+        ]
+      }
+    },
+    {"name": "body", "type":
+      {"type": "record", "name": "SNMPBody",
+        "doc": "Actual measurement data. One of the optional values should be used for the measurement consistently.",
+        "fields": [
+          {"name": "value_int", "type": ["long", "null"], "doc": "Integer measurement value (stored as 64 bit long)."},
+          {"name": "value_float", "type": ["double", "null"], "doc": "Float measurement value (stored as 64 bit double)."},
+          {"name": "value_string", "type": ["string", "null"], "doc": "String measurement value (UTF8 formatted text)."}
+        ]
+      }
+    }
+  ]
+}
