@@ -49,9 +49,10 @@ class ESFileLogger:
         self.event_id += 1
         if config.PRINT_CONSOLE: print(line)
 
-    def value(self, epoch, oid, value):
+    def value(self, epoch, oid, name, value):
         epoch *= 1000
-        name = oid._name()
+#        name = oid._name()
+        name = name.replace(' ', '_')
         index = self.indices[name]
         index += 1
         self.indices[name] = index
@@ -65,7 +66,7 @@ class ESFileLogger:
         head = '{"index" : ' + self.head.create(name, name + '_' + str(index), epoch) + '}\n'
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
                '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
-               '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
+               '"oid_name" : "' + str(name) + '", "value" : ' + str_value + '}'
         line = head + body
         log = self.files[oid.oid_id]
         log.write(line + "\n")

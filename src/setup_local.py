@@ -3,8 +3,8 @@ __author__ = 'teemu kanstren'
 from setuptools import setup
 
 setup(name='pypro-local',
-      version='0.4.3',
-      description='System/SNMP resource probes',
+      version='0.5.1',
+      description='System resource probes',
       url='https://github.com/mukatee/pypro',
       author='Teemu Kanstren',
       author_email='tkanstren@gmail.com',

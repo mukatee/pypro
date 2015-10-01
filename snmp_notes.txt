@@ -1,0 +1,29 @@
+get bytes out for all interfaces:
+snmpwalk -v2c -c public 192.168.2.1 1.3.6.1.2.1.31.1.1.1.10
+IF-MIB::ifHCOutOctets.1 = Counter64: 74101636
+IF-MIB::ifHCOutOctets.2 = Counter64: 8574112783
+IF-MIB::ifHCOutOctets.3 = Counter64: 58633379885
+IF-MIB::ifHCOutOctets.4 = Counter64: 58517412727
+IF-MIB::ifHCOutOctets.5 = Counter64: 216181767
+IF-MIB::ifHCOutOctets.6 = Counter64: 0
+IF-MIB::ifHCOutOctets.7 = Counter64: 115233578617
+
+get bytes in for all interfaces:
+snmpwalk -v2c -c public 192.168.2.1 1.3.6.1.2.1.31.1.1.1.6
+IF-MIB::ifHCInOctets.1 = Counter64: 74104156
+IF-MIB::ifHCInOctets.2 = Counter64: 115684829866
+IF-MIB::ifHCInOctets.3 = Counter64: 6381298900
+IF-MIB::ifHCInOctets.4 = Counter64: 2827755940
+IF-MIB::ifHCInOctets.5 = Counter64: 46837000
+IF-MIB::ifHCInOctets.6 = Counter64: 0
+IF-MIB::ifHCInOctets.7 = Counter64: 7340366520
+
+get interface descriptions (ids):
+snmpwalk -v2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.2
+IF-MIB::ifDescr.1 = STRING: lo
+IF-MIB::ifDescr.2 = STRING: eth0
+IF-MIB::ifDescr.3 = STRING: eth1
+IF-MIB::ifDescr.4 = STRING: eth2
+IF-MIB::ifDescr.5 = STRING: vlan1
+IF-MIB::ifDescr.6 = STRING: vlan2
+IF-MIB::ifDescr.7 = STRING: br0

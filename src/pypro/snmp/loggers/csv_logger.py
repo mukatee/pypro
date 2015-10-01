@@ -16,7 +16,7 @@ class CSVFileLogger:
         self.event_log.flush()
 
         for oid in oids:
-            file_name = utils.log_dir + "/" + oid.oid_name.replace(' ', '_') + "_log.csv"
+            file_name = utils.log_dir + "/" + oid._name() + "_log.csv"
             log = open(file_name, "w", encoding="utf-8")
             header = "time;target;target_name;oid;oid_name;value"
             log.write(header + "\n")
@@ -41,8 +41,8 @@ class CSVFileLogger:
         if config.PRINT_CONSOLE: print(line)
         self.close()
 
-    def value(self, epoch, oid, value):
-        line = str(epoch) + ";" + oid.target() + ";" + oid.target_name + ";" + str(oid.oid_id) + ";" + str(oid.oid_name) + ";" + str(value)
+    def value(self, epoch, oid, name, value):
+        line = str(epoch) + ";" + oid.target() + ";" + oid.target_name + ";" + str(name) + ";" + str(oid._name()) + ";" + str(value)
         log = self.files[oid.oid_id]
         log.write(line + "\n")
         log.flush()

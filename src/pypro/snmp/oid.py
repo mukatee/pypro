@@ -35,5 +35,5 @@ class OID:
         values = []
         for name, val in var_binds:
 #            print('%s = %s' % (name.prettyPrint(), val.prettyPrint()))
-            values.append((name.prettyPrint(), val.prettyPrint()))
+            values.append((self.oid_name, val.prettyPrint()))
         return (errorIndication, errorStatus, errorIndex, values)

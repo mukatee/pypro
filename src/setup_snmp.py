@@ -3,7 +3,7 @@ __author__ = 'teemu kanstren'
 from setuptools import setup
 
 setup(name='pypro-snmp',
-      version='0.2.0',
+      version='0.3.0',
       description='System resource probes',
       url='https://github.com/mukatee/pypro',
       author='Teemu Kanstren',

@@ -42,8 +42,9 @@ class KafkaLogger:
         self.kafka.send_messages(config.KAFKA_TOPIC, msg.encode("utf8"))
         if config.PRINT_CONSOLE: print(msg)
 
-    def value(self, epoch, oid, value):
-        name = oid._name()
+    def value(self, epoch, oid, name, value):
+#        name = oid._name()
+        name = name.replace(' ', '_')
         index = self.indices[name]
         index += 1
         self.indices[name] = index
@@ -51,7 +52,7 @@ class KafkaLogger:
         str_value = str(value)
         if oid.numeric and not utils.is_number(str_value):
             is_error = True
-        head = self.head.create(oid.oid_name, oid.target_name, epoch)
+        head = self.head.create(name, oid.target_name, epoch)
         body = '{"target" : "' + str(oid.target()) + '", ' + \
                '"oid" : "' + str(oid.oid_id)
         if is_error:

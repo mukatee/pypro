@@ -35,9 +35,10 @@ class ESNetLogger:
         self.event_id += 1
         if config.PRINT_CONSOLE: print(reply)
 
-    def value(self, epoch, oid, value):
+    def value(self, epoch, oid, name, value):
         epoch *= 1000
-        name = oid._name()
+#        name = oid._name()
+        name = name.replace(' ', '_')
         index = self.indices[name]
         index += 1
         self.indices[name] = index
@@ -46,7 +47,7 @@ class ESNetLogger:
             str_value = json.dumps(str_value)
         body = '{"time" : ' + str(epoch) + ', "target" : "' + str(oid.target()) + '", ' + \
                '"target_name" : "' + str(oid.target_name) + '", "oid" : "' + str(oid.oid_id) + '", ' + \
-               '"oid_name" : "' + str(oid.oid_name) + '", "value" : ' + str_value + '}'
+               '"oid_name" : "' + str(name) + '", "value" : ' + str_value + '}'
         reply = self.es.index(index=config.ES_INDEX, doc_type=name, id=name + '_' + str(index), body=body)
         if config.PRINT_CONSOLE: print(reply)
 

@@ -28,7 +28,7 @@ class IOPoller:
 
     def poll(self):
         # int() converts argument to integer (string or float), in this case the float time
-        epoch = int(time.time())
+        epoch = int(time.time()*1000)
         self.poll_system(epoch)
 
 if __name__ == "__main__":

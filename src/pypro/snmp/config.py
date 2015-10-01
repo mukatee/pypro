@@ -10,7 +10,8 @@ ES_FILE_ENABLED = False
 CSV_ENABLED = True
 #print log data to console (CSV/ES only)
 PRINT_CONSOLE = False
-KAFKA_ENABLED = True
+KAFKA_ENABLED = False
+INFLUX_ENABLED = True
 
 #elasticsearch server host address
 ES_HOST = "localhost"
@@ -22,6 +23,11 @@ SESSION_NAME = "session"
 SESSION_ID = 1
 #name of the elasticsearch index to write logs into
 DB_NAME = "my_database"
+
+INFLUX_HOST = "localhost"
+INFLUX_PORT = "8086"
+INFLUX_USER = "bob"
+INFLUX_PW = "greendale rocket"
 
 KAFKA_SERVER = "localhost:9092"
 KAFKA_TOPIC = "pypro"

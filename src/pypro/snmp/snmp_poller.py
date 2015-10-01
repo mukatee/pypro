@@ -50,5 +50,5 @@ class SNMPPoller:
         else:
             for name, val in var_binds:
                 for logger in self.loggers:
-                    logger.value(epoch, oid, val)
+                    logger.value(epoch, oid, name, val)
         pass

@@ -49,3 +49,13 @@ config.SNMP_OIDS.append(BytesOut('public', '192.168.2.1', 161, 'router', 1))
 config.SNMP_OIDS.append(RamUsed('public', '192.168.2.1', 161, 'router'))
 
 main.run_poller()
+
+#example getting bytes received for all interfaces
+#snmpwalk -v2c -c public 192.168.2.1 1.3.6.1.2.1.31.1.1.1.6
+
+#example getting bytes sent for all interfaces
+#snmpwalk -v2c -c public 192.168.2.1 1.3.6.1.2.1.31.1.1.1.10
+
+#example getting all interface names
+#snmpwalk -v2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.2
+

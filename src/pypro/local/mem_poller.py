@@ -49,11 +49,8 @@ class MemPoller:
 
     def poll(self):
         # int() converts argument to integer (string or float), in this case the float time
-        epoch = int(time.time())
-        #TODO: remove this multiplier and do modifications in loggers
+        epoch = int(time.time()*1000)
         self.poll_system(epoch)
-
-        before = int(time.time() * 1000)
 
         self.proc_poller.check_processes(epoch)
         for pid in config.PROCESS_LIST:
@@ -65,16 +62,10 @@ class MemPoller:
                 return
 
             processes = self.proc_poller.get_processes(pid)
-#            print("got "+str(processes)+" for "+str(pid))
             for proc in processes:
                 self.poll_process(epoch, proc)
 
-#        for proc in psutil.process_iter():
-#            self.proc_poller.check_info(epoch, proc)
-#            self.poll_process(epoch, proc)
         after = int(time.time() * 1000)
-        diff = after-before
-        #print("mem_p:"+str(diff))
 
 if __name__ == "__main__":
     file = CSVFileLogger(True)
