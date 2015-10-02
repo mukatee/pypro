@@ -24,6 +24,9 @@ class CPULoadPrct:
         self.prev_user = None
         self.prev_idle = None
 
+    def is_numeric(self):
+        return True
+
     def _name(self):
         return self.oid_name.replace(' ', '_')
 

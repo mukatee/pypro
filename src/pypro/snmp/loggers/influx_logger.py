@@ -34,11 +34,11 @@ class InFluxLogger:
         #TODO: logging
         is_error = False
         str_value = str(value)
-        if oid.numeric and not utils.is_number(str_value):
+        if oid.is_numeric() and not utils.is_number(str_value):
             is_error = True
             print("Error: received non-numeric value for numeric value:"+str_value)
             return
-        if oid.numeric: value = float(value)
+        if oid.is_numeric(): value = float(value)
         else: value = str_value
         json_body = [{"measurement": name,
                       "tags": {"tom": oid.target_name, "oid": str(oid.oid_id)},

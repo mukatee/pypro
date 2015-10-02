@@ -14,7 +14,6 @@ class RamUsed:
         self.ip = ip
         self.port = port
         self.target_name = target_name
-        self.numeric = True
         self.oid_id = 'dm.ram.used'
 
     def target(self):
@@ -22,6 +21,9 @@ class RamUsed:
 
     def _name(self):
         return self.oid_name.replace(' ', '_')
+
+    def is_numeric(self):
+        return True
 
     #for authenticated measurement polls
     def measure_auth(self, snmp, user, password, privacy_key, auth_proto, priv_proto):

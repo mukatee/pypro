@@ -3,10 +3,9 @@ __author__ = 'teemu kanstren'
 #http://www.mibdepot.com/cgi-bin/getmib3.cgi?i=1&n=UCD-SNMP-MIB&r=f5&f=UCD-SNMP-MIB&v=v2&t=tree
 
 import pypro.snmp.config as config
-from pypro.snmp.oid import OID
-from pypro.snmp.oid import OID_Type
+from pypro.snmp.oids.oid import OID
+from pypro.snmp.oids.oid import OID_Type
 import pypro.snmp.main as main
-from pypro.snmp.oids import *
 
 config.SESSION_NAME = "session2"
 config.ES_INDEX = "pypro-snmp"

@@ -1,6 +1,5 @@
 __author__ = 'teemu kanstren'
 
-import os
 import unittest
 
 import pkg_resources
@@ -10,7 +9,7 @@ from kafka import KafkaClient
 from pypro.snmp.loggers.kafka_logger import KafkaLogger
 import pypro.snmp.config as config
 import pypro.tests.t_assert as t_assert
-from pypro.snmp.oid import OID
+from pypro.snmp.oids.oid import OID
 
 class TestKafkaLogs(unittest.TestCase):
     topic_index = 1

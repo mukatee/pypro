@@ -4,18 +4,17 @@ import time
 import os
 import unittest
 import shutil
-import inspect
-from elasticsearch import Elasticsearch
-from elasticsearch import helpers
-import pkg_resources
 from operator import itemgetter
+
+from elasticsearch import Elasticsearch
+import pkg_resources
 
 from pypro.snmp.loggers.es_network_logger import ESNetLogger
 from pypro import utils
-import pypro.tests.t_assert as t_assert
 import pypro.snmp.config as config
 import pypro.tests.t_assert as t_assert
-from pypro.snmp.oid import OID
+from pypro.snmp.oids.oid import OID
+
 
 #weird regex syntax, pattern required, weird errors...
 
