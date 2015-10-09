@@ -44,7 +44,7 @@ class KafkaAvroLogger:
     def stop(self, epoch):
         if config.PRINT_CONSOLE: print('stopping session logging to kafka with avro')
 
-    def value(self, epoch, oid, value):
+    def value(self, epoch, oid, name, value):
         name = oid._name()
         index = self.indices[name]
         index += 1

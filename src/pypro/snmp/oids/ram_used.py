@@ -19,6 +19,15 @@ class RamUsed:
     def target(self):
         return self.ip + ":" + str(self.port)
 
+    def is_int(self):
+        return True
+
+    def is_float(self):
+        return False
+
+    def is_str(self):
+        return False
+
     def _name(self):
         return self.oid_name.replace(' ', '_')
 

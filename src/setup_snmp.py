@@ -12,7 +12,7 @@ setup(name='pypro-snmp',
       packages=['pypro', 'pypro.snmp', 'pypro.snmp.loggers'],
       zip_safe=True,
       install_requires=[
-          'psutil', 'elasticsearch', 'kafka-python', 'pysnmp', 'avro'
+          'psutil', 'elasticsearch', 'kafka-python', 'pysnmp', 'avro', 'influxdb'
       ],
       classifiers=['License :: OSI Approved :: MIT License',
                    'Programming Language :: Python :: 3.4',
