@@ -24,6 +24,15 @@ class CPULoadPrct:
         self.prev_user = None
         self.prev_idle = None
 
+    def is_int(self):
+        return False
+
+    def is_float(self):
+        return True
+
+    def is_str(self):
+        return False
+
     def is_numeric(self):
         return True
 
