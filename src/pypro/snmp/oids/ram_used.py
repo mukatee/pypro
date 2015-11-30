@@ -6,7 +6,7 @@ from pysnmp.entity.rfc3413.oneliner import cmdgen
 class RamUsed:
     def __init__(self, community, ip, port, target_name):
         # sometimes the OID number sequence starts with "." which works to read it
-        # but pysnmp returns the name without the first "." so have to that here as well for later comparison to work
+        # but pysnmp returns the name without the first "." so have to use the same here as well for later comparison to work
         self.oid_total_id = '1.3.6.1.4.1.2021.4.5.0'
         self.oid_free_id = '1.3.6.1.4.1.2021.4.11.0'
         self.oid_name = 'used ram'

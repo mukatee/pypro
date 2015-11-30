@@ -105,6 +105,7 @@ class CPULoadPrct:
         idle_prct = idle_diff / total_diff * 100
         nice_prct = nice_diff / total_diff * 100
         sirq_prct = sirq_diff / total_diff * 100
+        busy_prct = system_prct + user_prct + nice_prct + sirq_prct
 
         self.prev_system = system_count
         self.prev_user = user_count
@@ -118,4 +119,5 @@ class CPULoadPrct:
         values.append(('cpu idle prct', idle_prct))
         values.append(('cpu nice prct', nice_prct))
         values.append(('cpu sirq prct', sirq_prct))
+        values.append(('cpu busy prct', busy_prct))
         return (errorIndication, errorStatus, errorIndex, values)  # finally return it in format similar to pysnmp

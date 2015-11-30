@@ -25,7 +25,8 @@ Supported logging targets are:
 - CSV file
 - Elasticsearch bulk import file
 - Elasticsearch indexing directly over network
-- Kafka producer (you need to write the consumer)
+- Kafka Avro producer (you need to write the consumer, Java [example)(https://github.com/mukatee/kafka-consumer) is available)
+- Kafka JSON producer (you need to write the consumer, Java [example)(https://github.com/mukatee/kafka-consumer) is available).
 
 Session Information
 -------------------
@@ -61,8 +62,10 @@ Example use:
 
 ```python
 import pypro.snmp.config as config
-from pypro.snmp.oid import OID
-from pypro.snmp.oids import *
+from pypro.snmp.oids.simple import *
+from pypro.snmp.oids.ram_used import RamUsed
+from pypro.snmp.oids.cpu_load_prct import CPULoadPrct
+from pypro.snmp.oids.oid import OID_Type
 import pypro.snmp.main as main
 
 config.ES_FILE_ENABLED = True
@@ -75,6 +78,8 @@ config.SNMP_OIDS.append(UserCPUTimeRaw('public', '192.168.2.1', 161, 'router'))
 config.SNMP_OIDS.append(UserCPUTimePrct('public', '192.168.2.1', 161, 'router'))
 #example of a derived value built from two OID's (total ram and free ram) to show used ram
 config.SNMP_OIDS.append(RamUsed('public', '192.168.2.1', 161, 'router'))
+#another derived value
+config.SNMP_OIDS.append(CPULoadPrct('public', '192.168.2.1', 161, 'router'))
 
 main.run_poller()
 ```
@@ -86,7 +91,7 @@ For configuration options, see [config.py](https://github.com/mukatee/pypro/blob
 For a list of prebuilt OID's to poll, see [oids.py](https://github.com/mukatee/pypro/blob/master/src/pypro/snmp/oids.py).
 
 For an example of how to build "derived measures",
-see RamUsed class in [oids.py](https://github.com/mukatee/pypro/blob/master/src/pypro/snmp/oids.py).
+see RamUsed class in [ram_used.py](https://github.com/mukatee/pypro/blob/master/src/pypro/snmp/oids/ram_used.py).
 This is a measure built from two or more oid values when the measure we want is not directly available.
 You can extend the OID class in a similar way to build your own and append them to the config list.
 

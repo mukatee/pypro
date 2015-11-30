@@ -28,7 +28,7 @@ Supported logging targets are:
 - Elasticsearch bulk import file
 - Elasticsearch indexing directly over network
 - MySQL database
-- Kafka producer (you need to write the consumer)
+- Kafka producer (you need to write the consumer). A Java [example](https://github.com/mukatee/kafka-consumer) is available.
 
 Metrics
 -------
@@ -103,7 +103,7 @@ For example, Kibana will not recognize is as a potential time column for visuali
 
 Usage
 -----
-Configuration is defined in the pypro.local.config.py file.
+Configuration is defined in the pypro/local/config.py file.
 Start from the pypro.local.main(.py) module.
 
 Example use:

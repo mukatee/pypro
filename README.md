@@ -31,6 +31,7 @@ Supported logging targets are:
 - Elasticsearch database
 - MySQL database (for pypro-local only currently)
 - Kafka producer
+- InFlux DB (pypro-snmp only)
 
 Metrics
 -------
