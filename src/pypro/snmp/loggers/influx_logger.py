@@ -25,7 +25,9 @@ class InFluxLogger:
         pass
 
     def value(self, epoch, oid, name, value):
-        epoch *= 1000000
+        print("writing to influx "+str(epoch))
+#        epoch *= 1000
+#        epoch *= 1000000
 #        name = oid._name()
         name = name.replace(' ', '_')
         #get index with default value of 0, add 1
@@ -39,16 +41,17 @@ class InFluxLogger:
             print("Error: received non-numeric value for numeric value:"+str_value)
             return
         if oid.is_numeric(): value = float(value)
-        else: value = str_value
-        json_body = [{"measurement": name,
+        else: value = str_value   #select * from free_RAM
+        data = [{"measurement": name,
                       "tags": {"tom": oid.target_name, "oid": str(oid.oid_id)},
                       "time": epoch,
-                      "time_precision": "ms",
                       "fields": {"value": value}
                      }
                     ]
-        self.client.write_points(json_body)
-        if config.PRINT_CONSOLE: print(json_body)
+        self.client.write_points(data, time_precision='ms')
+#        self.client.write_points(json_body)
+        print("wrote to influx "+str(epoch))
+        if config.PRINT_CONSOLE: print(data)
 
     def error(self, epoch, description):
         pass
