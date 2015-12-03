@@ -25,10 +25,6 @@ class InFluxLogger:
         pass
 
     def value(self, epoch, oid, name, value):
-        print("writing to influx "+str(epoch))
-#        epoch *= 1000
-#        epoch *= 1000000
-#        name = oid._name()
         name = name.replace(' ', '_')
         #get index with default value of 0, add 1
         index = self.indices.get(name, 0) + 1
@@ -49,8 +45,6 @@ class InFluxLogger:
                      }
                     ]
         self.client.write_points(data, time_precision='ms')
-#        self.client.write_points(json_body)
-        print("wrote to influx "+str(epoch))
         if config.PRINT_CONSOLE: print(data)
 
     def error(self, epoch, description):
